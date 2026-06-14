@@ -1,0 +1,746 @@
+{
+  "users": [
+    {
+      "id": "auditor1",
+      "name": "张审计",
+      "role": "auditor"
+    },
+    {
+      "id": "responsible1",
+      "name": "李负责",
+      "role": "responsible"
+    },
+    {
+      "id": "safety1",
+      "name": "王安全",
+      "role": "safety"
+    },
+    {
+      "id": "supervisor1",
+      "name": "赵主管",
+      "role": "supervisor"
+    }
+  ],
+  "issues": [
+    {
+      "id": "ISS-001",
+      "version": 2,
+      "title": "高温管道未设置隔热防护",
+      "regulationClause": "GB/T 15706-2012 第4.2.1条",
+      "severity": "high",
+      "description": "车间3号高温蒸汽管道未设置隔热防护层，存在烫伤风险",
+      "clientConfirmationRequired": true,
+      "status": "in_remediation",
+      "createdAt": "2026-06-09T13:24:56.467Z",
+      "deadline": "2026-06-24T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 15
+    },
+    {
+      "id": "ISS-002",
+      "version": 2,
+      "title": "消防通道被物料堵塞",
+      "regulationClause": "GB 50016-2014 第3.7.1条",
+      "severity": "high",
+      "description": "B区仓库消防通道被大量原材料堵塞，影响紧急疏散",
+      "clientConfirmationRequired": true,
+      "status": "in_remediation",
+      "createdAt": "2026-06-05T13:24:56.475Z",
+      "deadline": "2026-06-25T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 12
+    },
+    {
+      "id": "ISS-003",
+      "version": 2,
+      "title": "电气设备未定期检测接地",
+      "regulationClause": "GB/T 13869-2017 第5.1.2条",
+      "severity": "medium",
+      "description": "车间电气设备接地检测已超期3个月未执行",
+      "clientConfirmationRequired": false,
+      "status": "in_remediation",
+      "createdAt": "2026-05-15T13:24:56.475Z",
+      "deadline": "2026-06-10T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 8
+    },
+    {
+      "id": "ISS-004",
+      "version": 1,
+      "title": "危化品储存区未设置泄漏报警",
+      "regulationClause": "GB 15603-2022 第4.3.2条",
+      "severity": "high",
+      "description": "危化品储存区域未安装泄漏报警装置，存在重大安全隐患",
+      "clientConfirmationRequired": true,
+      "status": "overdue",
+      "createdAt": "2026-05-20T13:24:56.475Z",
+      "deadline": "2026-06-06T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": true,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 40
+    },
+    {
+      "id": "ISS-005",
+      "version": 2,
+      "title": "安全出口标识不清晰(复发)",
+      "regulationClause": "GB 13495.1-2015 第3.1条",
+      "severity": "medium",
+      "description": "A区安全出口标识再次出现不清晰问题，此前已整改关闭",
+      "clientConfirmationRequired": false,
+      "status": "reopened",
+      "createdAt": "2026-06-11T13:24:56.475Z",
+      "deadline": "2026-06-26T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": true,
+      "originalIssueId": "ISS-006",
+      "riskScoreDeduction": 20
+    },
+    {
+      "id": "ISS-006",
+      "version": 2,
+      "title": "安全出口标识不清晰",
+      "regulationClause": "GB 13495.1-2015 第3.1条",
+      "severity": "medium",
+      "description": "A区安全出口标识模糊不清，影响紧急疏散指引",
+      "clientConfirmationRequired": false,
+      "status": "closed",
+      "createdAt": "2026-04-30T13:24:56.475Z",
+      "deadline": "2026-05-25T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": true,
+      "originalIssueId": null,
+      "riskScoreDeduction": 5
+    },
+    {
+      "id": "ISS-007",
+      "version": 1,
+      "title": "叉车操作人员未持证上岗",
+      "regulationClause": "TSG N0001-2017 第3.2条",
+      "severity": "high",
+      "description": "仓库2名叉车操作人员未取得特种设备作业人员证",
+      "clientConfirmationRequired": true,
+      "status": "in_remediation",
+      "createdAt": "2026-06-06T13:24:56.475Z",
+      "deadline": "2026-06-21T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 15
+    },
+    {
+      "id": "ISS-008",
+      "version": 1,
+      "title": "车间噪声超标未配置防护",
+      "regulationClause": "GB/T 18664-2002 第4.1条",
+      "severity": "medium",
+      "description": "冲压车间噪声超过85dB，未为员工配备听力防护用品",
+      "clientConfirmationRequired": false,
+      "status": "plan_submitted",
+      "createdAt": "2026-06-08T13:24:56.475Z",
+      "deadline": "2026-06-28T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 8
+    },
+    {
+      "id": "ISS-009",
+      "version": 1,
+      "title": "应急预案未定期演练",
+      "regulationClause": "GB/T 29639-2020 第5.3条",
+      "severity": "low",
+      "description": "公司应急预案已超6个月未组织演练",
+      "clientConfirmationRequired": false,
+      "status": "assigned",
+      "createdAt": "2026-06-12T13:24:56.475Z",
+      "deadline": "2026-07-12T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 3
+    },
+    {
+      "id": "ISS-010",
+      "version": 1,
+      "title": "压力容器安全阀超期未校验",
+      "regulationClause": "TSG 21-2016 第8.1条",
+      "severity": "high",
+      "description": "2号储气罐安全阀校验已超期，存在爆炸风险",
+      "clientConfirmationRequired": true,
+      "status": "reinspection_passed",
+      "createdAt": "2026-05-25T13:24:56.475Z",
+      "deadline": "2026-06-15T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 18
+    },
+    {
+      "id": "ISS-011",
+      "version": 1,
+      "title": "有限空间作业未审批",
+      "regulationClause": "GB 30871-2022 第4.3条",
+      "severity": "high",
+      "description": "污水池有限空间作业未经审批擅自执行",
+      "clientConfirmationRequired": true,
+      "status": "submitted",
+      "createdAt": "2026-06-13T13:24:56.475Z",
+      "deadline": "2026-06-29T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": null,
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 20
+    },
+    {
+      "id": "ISS-012",
+      "version": 1,
+      "title": "劳动防护用品发放不足",
+      "regulationClause": "GB/T 11651-2008 第4.2条",
+      "severity": "low",
+      "description": "部分岗位员工未按标准配发防护手套和护目镜",
+      "clientConfirmationRequired": false,
+      "status": "closed",
+      "createdAt": "2026-04-25T13:24:56.475Z",
+      "deadline": "2026-05-20T13:24:56.475Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 2
+    }
+  ],
+  "remediationPlans": [
+    {
+      "id": "6e668c89-109a-43cb-afcc-11f36050c215",
+      "issueId": "ISS-001",
+      "version": 1,
+      "rootCause": "管道安装时遗漏隔热层施工环节",
+      "plan": "采购隔热材料，对3号管道加装硅酸铝隔热层",
+      "capaMeasures": "修订管道安装检查清单，增加隔热层验收环节",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-24T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-06-11T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-06-11T13:24:56.476Z"
+    },
+    {
+      "id": "d134a2a1-1fda-423f-8d6d-8e701866b53d",
+      "issueId": "ISS-002",
+      "version": 1,
+      "rootCause": "仓库物料堆放规划不合理，占用消防通道",
+      "plan": "重新规划仓库物料存放区域，增设物料架，清理消防通道",
+      "capaMeasures": "建立仓库物料存放巡检制度，每周检查消防通道",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-20T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-06-10T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-06-08T13:24:56.476Z"
+    },
+    {
+      "id": "16085b7a-5332-434b-bb4b-1b8f36af359c",
+      "issueId": "ISS-003",
+      "version": 1,
+      "rootCause": "设备管理部门检测计划执行不到位",
+      "plan": "联系有资质的检测机构，安排全面接地检测",
+      "capaMeasures": "建立电气设备检测台账，设置到期提醒",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-09T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-05-25T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-05-23T13:24:56.476Z"
+    },
+    {
+      "id": "b6274d9b-8e8b-4c8c-b6e1-1a8d502c33fc",
+      "issueId": "ISS-004",
+      "version": 1,
+      "rootCause": "危化品区域改造预算未审批导致设备未采购",
+      "plan": "申请专项预算采购泄漏报警装置并安装",
+      "capaMeasures": "将危化品区域安全设施纳入年度预算必选项",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-11T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-05-30T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-05-27T13:24:56.476Z"
+    },
+    {
+      "id": "bf2ee34d-0113-4178-9c7a-7c743674c31c",
+      "issueId": "ISS-005",
+      "version": 1,
+      "rootCause": "标识材料老化，日常维护未及时更换",
+      "plan": "更换为LED发光安全出口标识，设置定期更换周期",
+      "capaMeasures": "将安全标识检查纳入日常巡检项目",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-26T13:24:56.476Z",
+      "status": "submitted",
+      "approvedBy": null,
+      "approvedAt": null,
+      "createdBy": "responsible1",
+      "createdAt": "2026-06-12T13:24:56.476Z"
+    },
+    {
+      "id": "f4e92c25-30a0-40c9-8e9d-d1d66bae4fd8",
+      "issueId": "ISS-006",
+      "version": 1,
+      "rootCause": "标识使用时间过长导致褪色",
+      "plan": "更换所有褪色的安全出口标识",
+      "capaMeasures": "建立标识定期检查替换制度",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-05-23T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-05-15T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-05-10T13:24:56.476Z"
+    },
+    {
+      "id": "6520475a-8ebb-44ff-a4fb-8fc61fff02a4",
+      "issueId": "ISS-007",
+      "version": 1,
+      "rootCause": "人员招聘流程中缺少资质审核环节",
+      "plan": "安排2名人员参加特种设备作业培训并考取证书",
+      "capaMeasures": "在招聘流程中增加资质审核节点",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-21T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-06-09T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-06-07T13:24:56.476Z"
+    },
+    {
+      "id": "72955083-f0dc-4918-a39b-9b3e840f8b38",
+      "issueId": "ISS-008",
+      "version": 1,
+      "rootCause": "防护用品配置标准未及时更新",
+      "plan": "采购听力防护用品，为冲压车间员工配发",
+      "capaMeasures": "修订防护用品配置标准，增加噪声岗位配置要求",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-28T13:24:56.476Z",
+      "status": "submitted",
+      "approvedBy": null,
+      "approvedAt": null,
+      "createdBy": "responsible1",
+      "createdAt": "2026-06-10T13:24:56.476Z"
+    },
+    {
+      "id": "2f91483f-c490-4877-9310-913d6366b545",
+      "issueId": "ISS-010",
+      "version": 1,
+      "rootCause": "安全阀校验提醒机制缺失",
+      "plan": "送校安全阀，安装已校验合格的安全阀",
+      "capaMeasures": "建立安全阀校验台账和到期提醒系统",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-06T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-05-30T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-05-27T13:24:56.476Z"
+    },
+    {
+      "id": "4f29f2e7-899c-45a1-9a35-020fbd88e4b6",
+      "issueId": "ISS-012",
+      "version": 1,
+      "rootCause": "防护用品采购计划遗漏部分岗位",
+      "plan": "补充采购防护手套和护目镜",
+      "capaMeasures": "完善防护用品配置标准，确保全员覆盖",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-05-17T13:24:56.476Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-05-05T13:24:56.476Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-05-03T13:24:56.476Z"
+    }
+  ],
+  "reinspections": [
+    {
+      "id": "f8be1206-6567-4801-a8b2-164583f88554",
+      "issueId": "ISS-002",
+      "planDate": "2026-06-22T13:24:56.476Z",
+      "actualDate": "2026-06-22T13:24:56.476Z",
+      "result": "pending",
+      "notes": "消防通道已清理，需拍照确认",
+      "inspector": "safety1",
+      "createdAt": "2026-06-21T13:24:56.476Z"
+    },
+    {
+      "id": "058082c4-717d-4fc3-afaf-16e16b20c640",
+      "issueId": "ISS-010",
+      "planDate": "2026-06-12T13:24:56.476Z",
+      "actualDate": "2026-06-12T13:24:56.476Z",
+      "result": "pass",
+      "notes": "安全阀已更换并校验合格，相关证书齐全",
+      "inspector": "safety1",
+      "createdAt": "2026-06-11T13:24:56.476Z"
+    }
+  ],
+  "photos": [
+    {
+      "id": "cdb961e0-a14b-4b3d-b94d-d5eee25038ba",
+      "issueId": "ISS-001",
+      "category": "evidence",
+      "url": "/uploads/iss001-evidence1.jpg",
+      "uploadedAt": "2026-06-09T13:24:56.476Z",
+      "uploadedBy": "auditor1"
+    },
+    {
+      "id": "2294e405-b0da-49c7-a90c-d9f548f24805",
+      "issueId": "ISS-001",
+      "category": "evidence",
+      "url": "/uploads/iss001-evidence2.jpg",
+      "uploadedAt": "2026-06-09T13:24:56.476Z",
+      "uploadedBy": "auditor1"
+    },
+    {
+      "id": "2c7a375d-e64f-4c79-aab9-74c6ea05ccdd",
+      "issueId": "ISS-002",
+      "category": "evidence",
+      "url": "/uploads/iss002-evidence1.jpg",
+      "uploadedAt": "2026-06-05T13:24:56.476Z",
+      "uploadedBy": "auditor1"
+    },
+    {
+      "id": "ad971ac7-53d4-4e50-bb11-723360c3fb48",
+      "issueId": "ISS-004",
+      "category": "evidence",
+      "url": "/uploads/iss004-evidence1.jpg",
+      "uploadedAt": "2026-05-20T13:24:56.476Z",
+      "uploadedBy": "auditor1"
+    },
+    {
+      "id": "ebe8dbb9-0479-4795-b1f0-918517763a99",
+      "issueId": "ISS-010",
+      "category": "reinspection",
+      "url": "/uploads/iss010-reinspection1.jpg",
+      "uploadedAt": "2026-06-12T13:24:56.476Z",
+      "uploadedBy": "safety1"
+    },
+    {
+      "id": "b08dd569-4d9c-4897-b3f6-082dfa704d57",
+      "issueId": "ISS-010",
+      "category": "reinspection",
+      "url": "/uploads/iss010-reinspection2.jpg",
+      "uploadedAt": "2026-06-12T13:24:56.476Z",
+      "uploadedBy": "safety1"
+    }
+  ],
+  "extensionRequests": [
+    {
+      "id": "85eb2a7d-7bbb-4c95-a95a-8e38f0ec42ff",
+      "issueId": "ISS-003",
+      "reason": "检测机构排期紧张，需额外2周时间",
+      "requestedDeadline": "2026-06-24T13:24:56.476Z",
+      "status": "rejected",
+      "approvedBy": "supervisor1",
+      "createdAt": "2026-06-08T13:24:56.476Z"
+    },
+    {
+      "id": "f3ae70ef-b28b-42b3-9947-d187b8874bba",
+      "issueId": "ISS-004",
+      "reason": "预算审批流程较长，需延长整改期限",
+      "requestedDeadline": "2026-06-20T13:24:56.476Z",
+      "status": "pending",
+      "approvedBy": null,
+      "createdAt": "2026-06-05T13:24:56.476Z"
+    }
+  ],
+  "approvalRecords": [
+    {
+      "id": "194ff067-ebbe-469c-ab72-e3a8f509b3a9",
+      "issueId": "ISS-001",
+      "type": "plan_approval",
+      "approver": "supervisor1",
+      "decision": "approved",
+      "comment": "整改方案可行，需确保隔热材料符合国标",
+      "createdAt": "2026-06-11T13:24:56.476Z"
+    },
+    {
+      "id": "eafb8a58-d8fb-4ca3-82c3-958e00ccfada",
+      "issueId": "ISS-002",
+      "type": "plan_approval",
+      "approver": "supervisor1",
+      "decision": "approved",
+      "comment": "同意，消防通道必须保持畅通",
+      "createdAt": "2026-06-10T13:24:56.476Z"
+    },
+    {
+      "id": "04ef4e98-aae3-4b58-96b7-36bd83c04b1b",
+      "issueId": "ISS-003",
+      "type": "extension_approval",
+      "approver": "supervisor1",
+      "decision": "rejected",
+      "comment": "已超期较久，不再批准延期，需立即执行",
+      "createdAt": "2026-06-09T13:24:56.476Z"
+    },
+    {
+      "id": "c0262c6e-7fe3-4909-a760-8bbbb738e92e",
+      "issueId": "ISS-007",
+      "type": "plan_approval",
+      "approver": "supervisor1",
+      "decision": "approved",
+      "comment": "尽快安排培训和考证",
+      "createdAt": "2026-06-09T13:24:56.476Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "84f8a665-8b57-4ac2-94bd-06b02e5e621e",
+      "issueId": "ISS-001",
+      "action": "issue_created",
+      "actor": "张审计",
+      "role": "auditor",
+      "details": "创建高风险问题：高温管道未设置隔热防护",
+      "timestamp": "2026-06-09T13:24:56.476Z"
+    },
+    {
+      "id": "e9914ac1-a140-4307-afe0-41454ef5018a",
+      "issueId": "ISS-001",
+      "action": "plan_approved",
+      "actor": "赵主管",
+      "role": "supervisor",
+      "details": "审批通过整改方案",
+      "timestamp": "2026-06-11T13:24:56.476Z"
+    },
+    {
+      "id": "0fab5895-ea07-4173-bc04-6ad3c18e4397",
+      "issueId": "ISS-002",
+      "action": "issue_created",
+      "actor": "张审计",
+      "role": "auditor",
+      "details": "创建问题：消防通道被物料堵塞",
+      "timestamp": "2026-06-05T13:24:56.476Z"
+    },
+    {
+      "id": "859572f9-4571-40ed-812b-0045d36bd1ed",
+      "issueId": "ISS-002",
+      "action": "plan_approved",
+      "actor": "赵主管",
+      "role": "supervisor",
+      "details": "审批通过整改方案",
+      "timestamp": "2026-06-10T13:24:56.476Z"
+    },
+    {
+      "id": "b3b9a62d-08fc-4414-be40-d377b3e5c5fa",
+      "issueId": "ISS-003",
+      "action": "extension_rejected",
+      "actor": "赵主管",
+      "role": "supervisor",
+      "details": "延期申请被拒绝，要求立即执行整改",
+      "timestamp": "2026-06-09T13:24:56.476Z"
+    },
+    {
+      "id": "2e477543-0dc1-4041-9470-c2ad51536020",
+      "issueId": "ISS-004",
+      "action": "issue_overdue",
+      "actor": "系统",
+      "role": "system",
+      "details": "问题逾期超过7天，严重等级升级",
+      "timestamp": "2026-06-06T13:24:56.476Z"
+    },
+    {
+      "id": "a1551ac3-57f7-48fa-b04f-d7cc2a63a623",
+      "issueId": "ISS-004",
+      "action": "risk_deducted",
+      "actor": "系统",
+      "role": "system",
+      "details": "逾期7天以上，额外扣减20风险分",
+      "timestamp": "2026-06-06T13:24:56.476Z"
+    },
+    {
+      "id": "37a0e485-2dc8-46e3-aaf0-708531b71449",
+      "issueId": "ISS-005",
+      "action": "issue_reopened",
+      "actor": "张审计",
+      "role": "auditor",
+      "details": "问题复发，重新打开，关联原始问题ISS-006",
+      "timestamp": "2026-06-11T13:24:56.476Z"
+    },
+    {
+      "id": "f7db9866-0cc5-498a-961d-8c37c576ea0e",
+      "issueId": "ISS-006",
+      "action": "issue_closed",
+      "actor": "王安全",
+      "role": "safety",
+      "details": "复检通过，问题关闭",
+      "timestamp": "2026-05-23T13:24:56.476Z"
+    },
+    {
+      "id": "b1799a00-b4f2-435b-b3ed-eee9764ae39d",
+      "issueId": "ISS-010",
+      "action": "reinspection_passed",
+      "actor": "王安全",
+      "role": "safety",
+      "details": "复检通过，安全阀已更换并校验合格",
+      "timestamp": "2026-06-12T13:24:56.476Z"
+    },
+    {
+      "id": "494263b3-344a-470e-a309-2b7c9c0481f9",
+      "issueId": "ISS-005",
+      "action": "risk_deducted",
+      "actor": "张审计",
+      "role": "auditor",
+      "details": "问题复发扣分：安全出口标识不清晰，扣减10风险分",
+      "timestamp": "2026-06-11T13:24:56.476Z"
+    }
+  ],
+  "riskScores": [
+    {
+      "id": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "score": -176,
+      "updatedAt": "2026-06-14T00:00:00.000Z"
+    }
+  ],
+  "riskDeductions": [
+    {
+      "id": "5daba1fb-febe-4650-bd98-d0d65cf636e7",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-001",
+      "reason": "高温管道未设置隔热防护 (high级)",
+      "points": 15,
+      "createdAt": "2026-06-09T13:24:56.467Z"
+    },
+    {
+      "id": "e9e33395-5856-4c10-ac11-0da266a6295c",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-002",
+      "reason": "消防通道被物料堵塞 (high级)",
+      "points": 12,
+      "createdAt": "2026-06-05T13:24:56.475Z"
+    },
+    {
+      "id": "5c98194c-e2e0-4c51-8be6-d4dce76c1ddf",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-003",
+      "reason": "电气设备未定期检测接地 (medium级)",
+      "points": 8,
+      "createdAt": "2026-05-15T13:24:56.475Z"
+    },
+    {
+      "id": "cb7f2d9a-b52d-4e48-887f-372049f557ef",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-004",
+      "reason": "危化品储存区未设置泄漏报警 (high级)",
+      "points": 20,
+      "createdAt": "2026-05-20T13:24:56.475Z"
+    },
+    {
+      "id": "f0b4cff3-4931-40b1-957f-f2478d044902",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-004",
+      "reason": "问题逾期7天以上：危化品储存区未设置泄漏报警",
+      "points": 20,
+      "createdAt": "2026-06-06T13:24:56.476Z"
+    },
+    {
+      "id": "0b924359-f45e-414e-96aa-e1e52a129e94",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-005",
+      "reason": "安全出口标识不清晰(复发) (medium级)",
+      "points": 10,
+      "createdAt": "2026-06-11T13:24:56.475Z"
+    },
+    {
+      "id": "19428e2d-9427-4be4-9e5a-92d8587476fa",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-005",
+      "reason": "问题复发扣分：安全出口标识不清晰",
+      "points": 10,
+      "createdAt": "2026-06-11T13:24:56.476Z"
+    },
+    {
+      "id": "5c0378cf-716b-4c1b-a7f6-ba456b4a918e",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-006",
+      "reason": "安全出口标识不清晰 (medium级)",
+      "points": 5,
+      "createdAt": "2026-04-30T13:24:56.475Z"
+    },
+    {
+      "id": "69804079-22c0-4198-87a6-8eabc58e5c0b",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-007",
+      "reason": "叉车操作人员未持证上岗 (high级)",
+      "points": 15,
+      "createdAt": "2026-06-06T13:24:56.475Z"
+    },
+    {
+      "id": "c353302d-c0c0-497e-bb71-f15cd108dabf",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-008",
+      "reason": "车间噪声超标未配置防护 (medium级)",
+      "points": 8,
+      "createdAt": "2026-06-08T13:24:56.475Z"
+    },
+    {
+      "id": "300c712b-7e98-4fde-a80e-b0a851c40add",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-009",
+      "reason": "应急预案未定期演练 (low级)",
+      "points": 3,
+      "createdAt": "2026-06-12T13:24:56.475Z"
+    },
+    {
+      "id": "b197b486-a72c-436c-b276-06184d36f62a",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-010",
+      "reason": "压力容器安全阀超期未校验 (high级)",
+      "points": 18,
+      "createdAt": "2026-05-25T13:24:56.475Z"
+    },
+    {
+      "id": "4dbe274c-9bfc-4ca7-ae8c-68320e9347f5",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-011",
+      "reason": "有限空间作业未审批 (high级)",
+      "points": 20,
+      "createdAt": "2026-06-13T13:24:56.475Z"
+    },
+    {
+      "id": "b481b1ed-2dae-43d0-b55c-78672aff234e",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-012",
+      "reason": "劳动防护用品发放不足 (low级)",
+      "points": 2,
+      "createdAt": "2026-04-25T13:24:56.475Z"
+    }
+  ]
+}
