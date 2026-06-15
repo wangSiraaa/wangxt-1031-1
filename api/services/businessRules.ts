@@ -11,6 +11,13 @@ export const RULES = {
   R008: '版本递增',
 } as const
 
+export const ROLE_LABELS: Record<string, string> = {
+  auditor: '审厂员',
+  responsible: '企业负责人',
+  safety: '安全专员',
+  supervisor: '主管',
+}
+
 export const SEVERITY_DEDUCTION: Record<string, number> = {
   high: 20,
   medium: 10,
@@ -176,6 +183,48 @@ export function canTransitionStatus(currentStatus: string, targetStatus: string)
   return allowed.includes(targetStatus)
 }
 
+export function validateHighRiskToRemediation(issueId: string, targetStatus: string, actorId?: string): { allowed: boolean; reason?: string } {
+  if (targetStatus !== 'in_remediation') return { allowed: true }
+  const issue = findInCollection<any>('issues', issueId)
+  if (!issue) return { allowed: false, reason: '问题不存在' }
+  if (issue.severity !== 'high') return { allowed: true }
+  const plans = filterCollection<any>('remediationPlans', (p) => p.issueId === issueId)
+  const approvedPlan = plans.find((p) => p.status === 'approved')
+  if (!approvedPlan) {
+    return { allowed: false, reason: '高风险问题必须经主管审批整改方案后才能进入整改（R001）' }
+  }
+  if (actorId) {
+    const users = getCollection<any>('users')
+    const actor = users.find((u: any) => u.id === actorId)
+    if (actor && actor.role !== 'supervisor' && !approvedPlan.approvedBy) {
+      return { allowed: false, reason: `用户 ${actor.name}（${actor.role}）无权将高风险问题推进到整改中，需主管审批（R001）` }
+    }
+  }
+  return { allowed: true }
+}
+
+export function validateSupervisorRole(userId: string): { allowed: boolean; user?: any; reason?: string } {
+  const users = getCollection<any>('users')
+  const user = users.find((u: any) => u.id === userId)
+  if (!user) {
+    return { allowed: false, reason: '用户不存在' }
+  }
+  if (user.role !== 'supervisor') {
+    return { allowed: false, user, reason: `用户 ${user.name}（${ROLE_LABELS[user.role] || user.role}）无主管审批权限，仅主管角色可执行审批操作（R009）` }
+  }
+  return { allowed: true, user }
+}
+
+export function createUnauthorizedAuditLog(
+  issueId: string,
+  action: string,
+  actor: string,
+  role: string,
+  details: string
+): any {
+  return createAuditLog(issueId, action, actor, role, `【越权拦截】${details}`)
+}
+
 export function getBusinessRulesSummary(): any[] {
   return [
     { id: 'R001', name: RULES.R001, description: 'severity=high 的方案必须 supervisor 审批通过才能进入 in_remediation' },
@@ -186,5 +235,6 @@ export function getBusinessRulesSummary(): any[] {
     { id: 'R006', name: RULES.R006, description: '延期申请被驳回后，若已过原 deadline 则立即进入逾期' },
     { id: 'R007', name: RULES.R007, description: 'auditLogs 表仅追加，不修改不删除' },
     { id: 'R008', name: RULES.R008, description: '问题/方案更新时 version+1，保留历史版本' },
+    { id: 'R009', name: '主管角色校验', description: '仅 role=supervisor 的用户可执行审批操作（方案审批/延期审批）' },
   ]
 }

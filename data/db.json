@@ -24,7 +24,7 @@
   "issues": [
     {
       "id": "ISS-001",
-      "version": 2,
+      "version": 3,
       "title": "高温管道未设置隔热防护",
       "regulationClause": "GB/T 15706-2012 第4.2.1条",
       "severity": "high",
@@ -38,7 +38,8 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 15
+      "riskScoreDeduction": 15,
+      "updatedBy": "responsible1"
     },
     {
       "id": "ISS-002",
@@ -237,6 +238,24 @@
       "isRecurrent": false,
       "originalIssueId": null,
       "riskScoreDeduction": 2
+    },
+    {
+      "id": "ISS-013",
+      "version": 4,
+      "title": "越权测试-高风险问题",
+      "regulationClause": "GB/T 15706-2012",
+      "severity": "high",
+      "description": "测试高风险审批门控",
+      "clientConfirmationRequired": true,
+      "status": "in_remediation",
+      "createdAt": "2026-06-15T15:31:32.115Z",
+      "deadline": "2026-06-30T15:31:32.115Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 20
     }
   ],
   "remediationPlans": [
@@ -389,6 +408,21 @@
       "approvedAt": "2026-05-05T13:24:56.476Z",
       "createdBy": "responsible1",
       "createdAt": "2026-05-03T13:24:56.476Z"
+    },
+    {
+      "id": "3cf5a242-bb50-41d1-948b-01c879510972",
+      "issueId": "ISS-013",
+      "version": 1,
+      "rootCause": "管道隔热材料老化",
+      "plan": "更换隔热防护层",
+      "capaMeasures": "建立定期巡检制度",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-30T15:31:32.115Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-06-15T15:32:20.282Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-06-15T15:32:20.205Z"
     }
   ],
   "reinspections": [
@@ -519,6 +553,17 @@
       "decision": "approved",
       "comment": "尽快安排培训和考证",
       "createdAt": "2026-06-09T13:24:56.476Z"
+    },
+    {
+      "id": "0d46b4b5-c99c-48e3-a944-21695ff52443",
+      "issueId": "ISS-013",
+      "type": "plan_approval",
+      "approver": "supervisor1",
+      "approverRole": "supervisor",
+      "approverName": "赵主管",
+      "decision": "approved",
+      "comment": "主管审批通过整改方案",
+      "createdAt": "2026-06-15T15:32:20.283Z"
     }
   ],
   "auditLogs": [
@@ -620,13 +665,121 @@
       "role": "auditor",
       "details": "问题复发扣分：安全出口标识不清晰，扣减10风险分",
       "timestamp": "2026-06-11T13:24:56.476Z"
+    },
+    {
+      "id": "831aaac6-ed6b-45bf-bd7b-c937c3366eaa",
+      "issueId": "ISS-005",
+      "action": "plan_approval_unauthorized",
+      "actor": "张审计",
+      "role": "auditor",
+      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 张审计（审厂员）无主管审批权限，仅主管角色可执行审批操作（R009）",
+      "timestamp": "2026-06-15T15:30:35.303Z"
+    },
+    {
+      "id": "fa5aa0f3-a1e7-4ede-a8bd-ce37a70c220d",
+      "issueId": "ISS-005",
+      "action": "plan_approval_unauthorized",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 李负责（企业负责人）无主管审批权限，仅主管角色可执行审批操作（R009）",
+      "timestamp": "2026-06-15T15:30:35.670Z"
+    },
+    {
+      "id": "494374d3-954c-488e-9740-f316bfdc7620",
+      "issueId": "ISS-005",
+      "action": "plan_approval_unauthorized",
+      "actor": "王安全",
+      "role": "safety",
+      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 王安全（安全专员）无主管审批权限，仅主管角色可执行审批操作（R009）",
+      "timestamp": "2026-06-15T15:30:35.991Z"
+    },
+    {
+      "id": "a64fcd35-8393-4ca6-a7bf-f4f8de0ec32d",
+      "issueId": "ISS-005",
+      "action": "plan_approval_unauthorized",
+      "actor": "张审计",
+      "role": "auditor",
+      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 张审计（审厂员）无主管审批权限，仅主管角色可执行审批操作（R009）",
+      "timestamp": "2026-06-15T15:30:42.901Z"
+    },
+    {
+      "id": "56e2c989-434f-41a2-9438-9d874b54e123",
+      "issueId": "ISS-005",
+      "action": "plan_approval_unauthorized",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 李负责（企业负责人）无主管审批权限，仅主管角色可执行审批操作（R009）",
+      "timestamp": "2026-06-15T15:30:51.162Z"
+    },
+    {
+      "id": "93164e05-f6b9-4ed7-af12-ddc3c040de86",
+      "issueId": "ISS-005",
+      "action": "plan_approval_unauthorized",
+      "actor": "王安全",
+      "role": "safety",
+      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 王安全（安全专员）无主管审批权限，仅主管角色可执行审批操作（R009）",
+      "timestamp": "2026-06-15T15:30:57.451Z"
+    },
+    {
+      "id": "160c35e1-6a3d-4978-9fd1-66a9ac33b67b",
+      "issueId": "ISS-001",
+      "action": "issue_updated",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "更新问题信息",
+      "timestamp": "2026-06-15T15:31:05.384Z"
+    },
+    {
+      "id": "71341184-1b86-44e3-b170-eeeb48464830",
+      "issueId": "ISS-013",
+      "action": "issue_created",
+      "actor": "张审计",
+      "role": "auditor",
+      "details": "创建高风险问题：越权测试-高风险问题",
+      "timestamp": "2026-06-15T15:31:32.116Z"
+    },
+    {
+      "id": "18457b0e-1fc7-457e-8fc5-ad0a9577e183",
+      "issueId": "ISS-013",
+      "action": "issue_assigned",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "问题已分派给李负责",
+      "timestamp": "2026-06-15T15:31:38.381Z"
+    },
+    {
+      "id": "7c48061b-3f16-4546-9732-add9b465fd2d",
+      "issueId": "ISS-013",
+      "action": "high_risk_bypass_blocked",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "【越权拦截】尝试将高风险问题直接推进到整改中，被审批门控拦截：高风险问题必须经主管审批整改方案后才能进入整改（R001）",
+      "timestamp": "2026-06-15T15:31:46.209Z"
+    },
+    {
+      "id": "84ce370f-2103-4935-bbd7-edf5ee7ac48f",
+      "issueId": "ISS-013",
+      "action": "plan_submitted",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "提交整改方案，因高风险需主管审批",
+      "timestamp": "2026-06-15T15:32:20.206Z"
+    },
+    {
+      "id": "c8d68675-8f49-4f61-9fdc-96e73c0f06fc",
+      "issueId": "ISS-013",
+      "action": "plan_approved",
+      "actor": "赵主管",
+      "role": "supervisor",
+      "details": "主管审批通过整改方案：主管审批通过整改方案",
+      "timestamp": "2026-06-15T15:32:20.283Z"
     }
   ],
   "riskScores": [
     {
       "id": "bae28c50-a887-4d63-a01d-f15f79644105",
-      "score": -176,
-      "updatedAt": "2026-06-14T00:00:00.000Z"
+      "score": -196,
+      "updatedAt": "2026-06-15T15:31:32.116Z"
     }
   ],
   "riskDeductions": [
@@ -741,6 +894,14 @@
       "reason": "劳动防护用品发放不足 (low级)",
       "points": 2,
       "createdAt": "2026-04-25T13:24:56.475Z"
+    },
+    {
+      "id": "29de5d53-8f61-49ac-8d61-a2343afa5a17",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-013",
+      "reason": "越权测试-高风险问题 (high级)",
+      "points": 20,
+      "createdAt": "2026-06-15T15:31:32.115Z"
     }
   ]
 }

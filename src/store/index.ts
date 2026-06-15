@@ -231,7 +231,11 @@ export const useStore = create<AppState>((set, get) => ({
     try {
       const res = await API(`/approvals/plan/${planId}`, { method: 'POST', body: JSON.stringify({ decision, comment, approver }) })
       const json = await res.json()
-      if (json.success) { await get().fetchIssues() }
+      if (res.status === 403) {
+        set({ error: json.error || '越权操作：当前用户无主管审批权限（R009）' })
+        return
+      }
+      if (json.success) { await get().fetchIssues(); await get().fetchPlans(); await get().fetchApprovals() }
       else set({ error: json.error })
     } catch (e: any) {
       set({ error: e.message })
@@ -242,7 +246,11 @@ export const useStore = create<AppState>((set, get) => ({
     try {
       const res = await API(`/approvals/extension/${extensionId}`, { method: 'POST', body: JSON.stringify({ decision, comment, approver }) })
       const json = await res.json()
-      if (json.success) { await get().fetchIssues() }
+      if (res.status === 403) {
+        set({ error: json.error || '越权操作：当前用户无主管审批权限（R009）' })
+        return
+      }
+      if (json.success) { await get().fetchIssues(); await get().fetchExtensions(); await get().fetchApprovals() }
       else set({ error: json.error })
     } catch (e: any) {
       set({ error: e.message })

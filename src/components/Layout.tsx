@@ -34,6 +34,19 @@ export default function Layout() {
   const setCurrentUser = useStore((s) => s.setCurrentUser)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
 
+  const isSupervisor = currentUser.role === 'supervisor'
+
+  const navItems = [
+    { label: '仪表盘', icon: LayoutDashboard, path: '/' },
+    { label: '审厂问题', icon: ClipboardList, path: '/issues' },
+    { label: '负责人分派', icon: UserCheck, path: '/assignment' },
+    { label: '安全复查', icon: Eye, path: '/reinspection' },
+    ...(isSupervisor ? [{ label: '主管审批', icon: Stamp, path: '/approval' }] : []),
+    { label: '逾期红榜', icon: AlertTriangle, path: '/overdue' },
+    { label: '重复问题', icon: RefreshCw, path: '/recurrent' },
+    { label: '整改报表', icon: BarChart3, path: '/report' },
+  ]
+
   return (
     <div className="flex h-screen overflow-hidden">
       <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col bg-slate-900 text-white">
@@ -43,7 +56,7 @@ export default function Layout() {
         </div>
 
         <nav className="flex-1 overflow-y-auto py-4">
-          {NAV_ITEMS.map(({ label, icon: Icon, path }) => {
+          {navItems.map(({ label, icon: Icon, path }) => {
             const isActive = location.pathname === path
             return (
               <Link

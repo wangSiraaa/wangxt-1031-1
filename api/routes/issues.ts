@@ -6,6 +6,8 @@ import {
   calculateRiskDeduction,
   checkIsOverdue,
   canTransitionStatus,
+  validateHighRiskToRemediation,
+  createUnauthorizedAuditLog,
 } from '../services/businessRules.js'
 
 const router = Router()
@@ -120,6 +122,23 @@ router.put('/:id', (req: Request, res: Response): void => {
     if (!canTransitionStatus(issue.status, newStatus)) {
       res.status(400).json({ success: false, error: `不允许从 ${issue.status} 状态转换到 ${newStatus}` })
       return
+    }
+    if (newStatus === 'in_remediation') {
+      const actorId = req.body.updatedBy || req.body.assignedTo
+      const gateResult = validateHighRiskToRemediation(req.params.id, newStatus, actorId)
+      if (!gateResult.allowed) {
+        const users = getCollection<any>('users')
+        const actor = actorId ? users.find((u: any) => u.id === actorId) : null
+        createUnauthorizedAuditLog(
+          req.params.id,
+          'high_risk_bypass_blocked',
+          actor?.name || actorId || 'unknown',
+          actor?.role || 'unknown',
+          `尝试将高风险问题直接推进到整改中，被审批门控拦截：${gateResult.reason}`,
+        )
+        res.status(403).json({ success: false, error: gateResult.reason })
+        return
+      }
     }
   }
   const updates = { ...req.body, version: incrementVersion(issue) }

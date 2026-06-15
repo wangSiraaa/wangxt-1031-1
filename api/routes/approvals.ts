@@ -6,6 +6,8 @@ import {
   checkIsOverdue,
   canTransitionStatus,
   calculateRiskDeduction,
+  validateSupervisorRole,
+  createUnauthorizedAuditLog,
 } from '../services/businessRules.js'
 
 const router = Router()
@@ -33,6 +35,20 @@ router.post('/plan/:planId', (req: Request, res: Response): void => {
     res.status(400).json({ success: false, error: '缺少审批决定或审批人' })
     return
   }
+
+  const roleCheck = validateSupervisorRole(approver)
+  if (!roleCheck.allowed) {
+    createUnauthorizedAuditLog(
+      plan.issueId,
+      'plan_approval_unauthorized',
+      roleCheck.user?.name || approver,
+      roleCheck.user?.role || 'unknown',
+      `尝试审批整改方案 ${req.params.planId}，${roleCheck.reason}`,
+    )
+    res.status(403).json({ success: false, error: roleCheck.reason || '无审批权限' })
+    return
+  }
+
   const issue = findInCollection<any>('issues', plan.issueId)
   if (!issue) {
     res.status(404).json({ success: false, error: '关联问题不存在' })
@@ -59,6 +75,8 @@ router.post('/plan/:planId', (req: Request, res: Response): void => {
     issueId: plan.issueId,
     type: 'plan_approval',
     approver,
+    approverRole: user?.role || 'supervisor',
+    approverName: user?.name || approver,
     decision,
     comment: comment || '',
     createdAt: new Date().toISOString(),
@@ -85,6 +103,20 @@ router.post('/extension/:extensionId', (req: Request, res: Response): void => {
     res.status(400).json({ success: false, error: '缺少审批决定或审批人' })
     return
   }
+
+  const roleCheck = validateSupervisorRole(approver)
+  if (!roleCheck.allowed) {
+    createUnauthorizedAuditLog(
+      ext.issueId,
+      'extension_approval_unauthorized',
+      roleCheck.user?.name || approver,
+      roleCheck.user?.role || 'unknown',
+      `尝试审批延期申请 ${req.params.extensionId}，${roleCheck.reason}`,
+    )
+    res.status(403).json({ success: false, error: roleCheck.reason || '无审批权限' })
+    return
+  }
+
   updateInCollection('extensionRequests', req.params.extensionId, {
     status: decision,
     approvedBy: approver,
@@ -138,6 +170,8 @@ router.post('/extension/:extensionId', (req: Request, res: Response): void => {
     issueId: ext.issueId,
     type: 'extension_approval',
     approver,
+    approverRole: user?.role || 'supervisor',
+    approverName: user?.name || approver,
     decision,
     comment: comment || '',
     createdAt: new Date().toISOString(),

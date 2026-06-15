@@ -92,6 +92,8 @@ export interface ApprovalRecord {
   issueId: string
   type: ApprovalType
   approver: string
+  approverRole?: string
+  approverName?: string
   decision: ApprovalDecision
   comment: string
   createdAt: string

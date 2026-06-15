@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, FileText, CheckCircle, Clock, Camera, History, Link2 } from 'lucide-react'
+import { ArrowLeft, FileText, CheckCircle, Clock, Camera, History, Link2, ShieldAlert, Lock } from 'lucide-react'
 import { useStore } from '@/store'
 import { cn } from '@/lib/utils'
 import type { IssueSeverity, IssueStatus, PhotoCategory } from '@/types'
-import { STATUS_LABELS, SEVERITY_LABELS } from '@/types'
+import { STATUS_LABELS, SEVERITY_LABELS, ROLE_LABELS } from '@/types'
 
 const severityStyles: Record<IssueSeverity, string> = {
   high: 'bg-red-100 text-red-700',
@@ -84,6 +84,10 @@ export default function IssueDetail() {
     return null
   })()
 
+  const needsApprovalGate = issue.severity === 'high' && issue.status === 'plan_submitted'
+  const nonSupervisorViewingApproval = needsApprovalGate && currentUser.role !== 'supervisor'
+  const hasApprovedPlan = issue.plans.some((p) => p.status === 'approved')
+
   const groupedPhotos = issue.photos.reduce<Record<PhotoCategory, number>>((acc, p) => {
     acc[p.category] = (acc[p.category] || 0) + 1
     return acc
@@ -103,6 +107,35 @@ export default function IssueDetail() {
           </button>
         )}
       </div>
+
+      {nonSupervisorViewingApproval && (
+        <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-4">
+          <Lock className="h-5 w-5 text-amber-600 shrink-0" />
+          <div className="flex-1">
+            <div className="text-sm font-medium text-amber-800">
+              高风险整改方案审批门控（R001）
+            </div>
+            <div className="text-xs text-amber-600 mt-0.5">
+              当前用户 <strong>{currentUser.name}</strong>（{ROLE_LABELS[currentUser.role]}）无权审批此高风险方案。仅主管角色可将此问题推进到整改阶段。请通知主管进行审批。
+            </div>
+          </div>
+          <ShieldAlert className="h-4 w-4 text-amber-500 shrink-0" />
+        </div>
+      )}
+
+      {needsApprovalGate && currentUser.role === 'supervisor' && !hasApprovedPlan && (
+        <div className="flex items-center gap-3 bg-rose-50 border border-rose-200 rounded-lg px-4 py-3 mb-4">
+          <ShieldAlert className="h-5 w-5 text-rose-600 shrink-0" />
+          <div className="flex-1">
+            <div className="text-sm font-medium text-rose-800">
+              待您审批的高风险整改方案
+            </div>
+            <div className="text-xs text-rose-600 mt-0.5">
+              此高风险问题的整改方案需您审批后方可进入整改阶段（R001）。请点击「审批方案」按钮进行审批。
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-2">
