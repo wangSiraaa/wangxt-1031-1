@@ -15,6 +15,10 @@ import photoRoutes from './routes/photos.js'
 import auditRoutes from './routes/audit.js'
 import riskRoutes from './routes/risk.js'
 import rulesRoutes from './routes/rules.js'
+import layeredRecordRoutes from './routes/layeredRecords.js'
+import recurrenceRoutes from './routes/recurrence.js'
+import monitoringRoutes from './routes/monitoring.js'
+import clientConfirmationRoutes from './routes/clientConfirmations.js'
 
 dotenv.config()
 
@@ -34,6 +38,10 @@ app.use('/api/photos', photoRoutes)
 app.use('/api/audit', auditRoutes)
 app.use('/api/risk', riskRoutes)
 app.use('/api/rules', rulesRoutes)
+app.use('/api/layeredRecords', layeredRecordRoutes)
+app.use('/api/recurrence', recurrenceRoutes)
+app.use('/api/monitoring', monitoringRoutes)
+app.use('/api/clientConfirmations', clientConfirmationRoutes)
 
 app.use(
   '/api/health',

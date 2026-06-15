@@ -11,6 +11,11 @@ import type {
   RiskScore,
   RiskDeduction,
   User,
+  LayeredRecord,
+  RecurrenceLink,
+  MonitoringData,
+  ClientConfirmation,
+  RiskReevaluation,
 } from '@/types'
 
 interface AppState {
@@ -26,6 +31,11 @@ interface AppState {
   auditLogs: AuditLog[]
   riskScores: RiskScore[]
   riskDeductions: RiskDeduction[]
+  layeredRecords: LayeredRecord[]
+  recurrenceLinks: RecurrenceLink[]
+  monitoringData: MonitoringData[]
+  clientConfirmations: ClientConfirmation[]
+  riskReevaluations: RiskReevaluation[]
   rules: any[]
   loading: boolean
   error: string | null
@@ -56,6 +66,24 @@ interface AppState {
   checkCanClose: (issueId: string) => Promise<any>
   checkCanReinspect: (issueId: string) => Promise<any>
   getOverdueStatus: (issueId: string) => Promise<any>
+  fetchLayeredRecords: (issueId?: string) => Promise<void>
+  createLayeredRecord: (data: Partial<LayeredRecord>) => Promise<void>
+  approveLayeredRecord: (id: string, decision: string, comment: string, approver: string) => Promise<void>
+  checkLayeredRecordsComplete: (issueId: string) => Promise<any>
+  fetchRecurrenceHistory: (issueId: string) => Promise<any>
+  fetchSimilarIssues: (issueId: string) => Promise<any>
+  createRecurrenceLink: (issueId: string, originalIssueId: string) => Promise<void>
+  reevaluateRisk: (issueId: string) => Promise<any>
+  getEffectivenessComparison: (originalId: string, recurrentId: string) => Promise<any>
+  getRecurrenceRound: (issueId: string) => Promise<any>
+  fetchMonitoringData: (issueId?: string) => Promise<void>
+  createMonitoringData: (data: Partial<MonitoringData>) => Promise<void>
+  lockMonitoringAsEvidence: (id: string, lockedBy: string) => Promise<void>
+  fetchClientConfirmations: (issueId?: string) => Promise<void>
+  createClientConfirmation: (data: Partial<ClientConfirmation>) => Promise<void>
+  lockClientConfirmationAsEvidence: (id: string, lockedBy: string) => Promise<void>
+  addPhotoSupplement: (parentPhotoId: string, data: Partial<Photo>) => Promise<void>
+  lockPhotoAsEvidence: (id: string, lockedBy: string) => Promise<void>
   clearError: () => void
 }
 
@@ -81,6 +109,11 @@ export const useStore = create<AppState>((set, get) => ({
   auditLogs: [],
   riskScores: [],
   riskDeductions: [],
+  layeredRecords: [],
+  recurrenceLinks: [],
+  monitoringData: [],
+  clientConfirmations: [],
+  riskReevaluations: [],
   rules: [],
   loading: false,
   error: null,
@@ -391,4 +424,220 @@ export const useStore = create<AppState>((set, get) => ({
       return null
     }
   },
+
+  fetchLayeredRecords: async (issueId) => {
+    try {
+      const qs = issueId ? `?issueId=${issueId}` : ''
+      const res = await API(`/layeredRecords${qs}`)
+      const json = await res.json()
+      if (json.success) set({ layeredRecords: json.data })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  createLayeredRecord: async (data) => {
+    try {
+      const res = await API('/layeredRecords', { method: 'POST', body: JSON.stringify(data) })
+      const json = await res.json()
+      if (json.success) { await get().fetchLayeredRecords(data.issueId) }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  approveLayeredRecord: async (id, decision, comment, approver) => {
+    try {
+      const endpoint = decision === 'approved' ? 'approve' : 'reject'
+      const res = await API(`/layeredRecords/${id}/${endpoint}`, { method: 'PUT', body: JSON.stringify({ comment, approver }) })
+      const json = await res.json()
+      if (res.status === 403) {
+        set({ error: json.error || '越权操作：当前用户无主管审批权限（R009）' })
+        return
+      }
+      if (json.success) { await get().fetchLayeredRecords() }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  checkLayeredRecordsComplete: async (issueId) => {
+    try {
+      const res = await API(`/layeredRecords/completeness/${issueId}`)
+      const json = await res.json()
+      if (json.success) return json.data
+      set({ error: json.error })
+      return null
+    } catch (e: any) {
+      set({ error: e.message })
+      return null
+    }
+  },
+
+  fetchRecurrenceHistory: async (issueId) => {
+    try {
+      const res = await API(`/recurrence/history/${issueId}`)
+      const json = await res.json()
+      if (json.success) return json.data
+      set({ error: json.error })
+      return null
+    } catch (e: any) {
+      set({ error: e.message })
+      return null
+    }
+  },
+
+  fetchSimilarIssues: async (issueId) => {
+    try {
+      const res = await API(`/recurrence/similar/${issueId}`)
+      const json = await res.json()
+      if (json.success) return json.data
+      set({ error: json.error })
+      return null
+    } catch (e: any) {
+      set({ error: e.message })
+      return null
+    }
+  },
+
+  createRecurrenceLink: async (issueId, originalIssueId) => {
+    try {
+      const res = await API('/recurrence/link', { method: 'POST', body: JSON.stringify({ issueId, originalIssueId, linkedBy: get().currentUser.id }) })
+      const json = await res.json()
+      if (json.success) { await get().fetchIssues(); await get().fetchRisk() }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  reevaluateRisk: async (issueId) => {
+    try {
+      const res = await API('/recurrence/reevaluate', { method: 'POST', body: JSON.stringify({ issueId, reevaluatedBy: get().currentUser.id }) })
+      const json = await res.json()
+      if (json.success) { await get().fetchIssues(); await get().fetchRisk(); return json.data }
+      set({ error: json.error })
+      return null
+    } catch (e: any) {
+      set({ error: e.message })
+      return null
+    }
+  },
+
+  getEffectivenessComparison: async (originalId, recurrentId) => {
+    try {
+      const res = await API(`/recurrence/effectiveness/${originalId}/${recurrentId}`)
+      const json = await res.json()
+      if (json.success) return json.data
+      set({ error: json.error })
+      return null
+    } catch (e: any) {
+      set({ error: e.message })
+      return null
+    }
+  },
+
+  getRecurrenceRound: async (issueId) => {
+    try {
+      const res = await API(`/recurrence/round/${issueId}`)
+      const json = await res.json()
+      if (json.success) return json.data
+      set({ error: json.error })
+      return null
+    } catch (e: any) {
+      set({ error: e.message })
+      return null
+    }
+  },
+
+  fetchMonitoringData: async (issueId) => {
+    try {
+      const qs = issueId ? `?issueId=${issueId}` : ''
+      const res = await API(`/monitoring${qs}`)
+      const json = await res.json()
+      if (json.success) set({ monitoringData: json.data })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  createMonitoringData: async (data) => {
+    try {
+      const res = await API('/monitoring', { method: 'POST', body: JSON.stringify(data) })
+      const json = await res.json()
+      if (json.success) { await get().fetchMonitoringData(data.issueId) }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  lockMonitoringAsEvidence: async (id, lockedBy) => {
+    try {
+      const res = await API(`/monitoring/${id}/lock-as-evidence`, { method: 'PUT', body: JSON.stringify({ lockedBy }) })
+      const json = await res.json()
+      if (json.success) { await get().fetchMonitoringData() }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  fetchClientConfirmations: async (issueId) => {
+    try {
+      const qs = issueId ? `?issueId=${issueId}` : ''
+      const res = await API(`/clientConfirmations${qs}`)
+      const json = await res.json()
+      if (json.success) set({ clientConfirmations: json.data })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  createClientConfirmation: async (data) => {
+    try {
+      const res = await API('/clientConfirmations', { method: 'POST', body: JSON.stringify(data) })
+      const json = await res.json()
+      if (json.success) { await get().fetchClientConfirmations(data.issueId) }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  lockClientConfirmationAsEvidence: async (id, lockedBy) => {
+    try {
+      const res = await API(`/clientConfirmations/${id}/lock-as-evidence`, { method: 'PUT', body: JSON.stringify({ lockedBy }) })
+      const json = await res.json()
+      if (json.success) { await get().fetchClientConfirmations() }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  addPhotoSupplement: async (parentPhotoId, data) => {
+    try {
+      const res = await API('/photos/supplement', { method: 'POST', body: JSON.stringify({ parentPhotoId, ...data }) })
+      const json = await res.json()
+      if (!json.success) set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  lockPhotoAsEvidence: async (id, lockedBy) => {
+    try {
+      const res = await API(`/photos/${id}/lock-as-evidence`, { method: 'PUT', body: JSON.stringify({ lockedBy }) })
+      const json = await res.json()
+      if (json.success) { await get().fetchPhotos() }
+      else set({ error: json.error })
+    } catch (e: any) {
+      set({ error: e.message })
+    }
+  },
+
+  clearError: () => set({ error: null }),
 }))

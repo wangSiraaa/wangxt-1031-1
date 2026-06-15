@@ -8,6 +8,9 @@ import {
   canTransitionStatus,
   validateHighRiskToRemediation,
   createUnauthorizedAuditLog,
+  checkHighRiskEscalationRequired,
+  findSimilarIssuesWithinWindow,
+  HIGH_RISK_ESCALATION_DEDUCTION,
 } from '../services/businessRules.js'
 
 const router = Router()
@@ -41,6 +44,11 @@ router.get('/:id', (req: Request, res: Response): void => {
   const approvals = filterCollection<any>('approvalRecords', (a) => a.issueId === issue.id)
   const extensions = filterCollection<any>('extensionRequests', (e) => e.issueId === issue.id)
   const auditLogs = filterCollection<any>('auditLogs', (a) => a.issueId === issue.id)
+  const layeredRecords = filterCollection<any>('layeredRecords', (l) => l.issueId === issue.id)
+  const recurrenceLinks = filterCollection<any>('recurrenceLinks', (l) => l.issueId === issue.id || l.originalIssueId === issue.id)
+  const monitoringData = filterCollection<any>('monitoringData', (m) => m.issueId === issue.id)
+  const clientConfirmations = filterCollection<any>('clientConfirmations', (c) => c.issueId === issue.id)
+  const riskReevaluations = filterCollection<any>('riskReevaluations', (r) => r.issueId === issue.id)
   res.json({
     success: true,
     data: {
@@ -51,12 +59,28 @@ router.get('/:id', (req: Request, res: Response): void => {
       approvals,
       extensions,
       auditLogs,
+      layeredRecords,
+      recurrenceLinks,
+      monitoringData,
+      clientConfirmations,
+      riskReevaluations,
     },
   })
 })
 
 router.post('/', (req: Request, res: Response): void => {
-  const { title, regulationClause, severity, description, clientConfirmationRequired, deadline, createdBy } = req.body
+  const {
+    title,
+    regulationClause,
+    severity,
+    description,
+    clientConfirmationRequired,
+    deadline,
+    createdBy,
+    involvesWorkStop,
+    involvesExternalSupplier,
+    regulationUpdate,
+  } = req.body
   if (!title || !severity || !description || !createdBy) {
     res.status(400).json({ success: false, error: '缺少必填字段' })
     return
@@ -64,6 +88,19 @@ router.post('/', (req: Request, res: Response): void => {
   const issues = getCollection<any>('issues')
   const num = String(issues.length + 1).padStart(3, '0')
   const riskDeduction = calculateRiskDeduction(severity, false)
+  const tempIssue = {
+    severity,
+    involvesWorkStop: !!involvesWorkStop,
+    involvesExternalSupplier: !!involvesExternalSupplier,
+    regulationUpdate: regulationUpdate || null,
+  }
+  const escalationCheck = checkHighRiskEscalationRequired(tempIssue)
+  let totalDeduction = riskDeduction
+  if (escalationCheck.required) {
+    totalDeduction += HIGH_RISK_ESCALATION_DEDUCTION
+  }
+  const similarIssues = findSimilarIssuesWithinWindow(tempIssue, 180)
+  const isPotentialRecurrence = similarIssues.length > 0
   const issue = {
     id: `ISS-${num}`,
     version: 1,
@@ -78,9 +115,14 @@ router.post('/', (req: Request, res: Response): void => {
     createdBy,
     assignedTo: null,
     isOverdue: false,
-    isRecurrent: false,
-    originalIssueId: null,
-    riskScoreDeduction: riskDeduction,
+    isRecurrent: isPotentialRecurrence,
+    originalIssueId: isPotentialRecurrence ? similarIssues[0].id : null,
+    riskScoreDeduction: totalDeduction,
+    involvesWorkStop: !!involvesWorkStop,
+    involvesExternalSupplier: !!involvesExternalSupplier,
+    regulationUpdate: regulationUpdate || null,
+    recurrenceRound: isPotentialRecurrence ? 1 : 0,
+    closureEvidenceLocked: false,
   }
   addToCollection('issues', issue)
   const users = getCollection<any>('users')

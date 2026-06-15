@@ -9,7 +9,16 @@ export const RULES = {
   R006: '延期驳回即逾期',
   R007: '审计不可变',
   R008: '版本递增',
+  R009: '主管角色校验',
+  R010: '高风险分层记录完整性',
+  R011: '半年内复发自动关联',
+  R012: '关闭证据不可覆盖',
+  R013: '复发问题风险重评',
+  R014: '高风险升级检测',
 } as const
+
+export const RECURRENCE_DETECTION_WINDOW_DAYS = 180
+export const HIGH_RISK_ESCALATION_DEDUCTION = 30
 
 export const ROLE_LABELS: Record<string, string> = {
   auditor: '审厂员',
@@ -235,6 +244,243 @@ export function getBusinessRulesSummary(): any[] {
     { id: 'R006', name: RULES.R006, description: '延期申请被驳回后，若已过原 deadline 则立即进入逾期' },
     { id: 'R007', name: RULES.R007, description: 'auditLogs 表仅追加，不修改不删除' },
     { id: 'R008', name: RULES.R008, description: '问题/方案更新时 version+1，保留历史版本' },
-    { id: 'R009', name: '主管角色校验', description: '仅 role=supervisor 的用户可执行审批操作（方案审批/延期审批）' },
+    { id: 'R009', name: RULES.R009, description: '仅 role=supervisor 的用户可执行审批操作（方案审批/延期审批）' },
+    { id: 'R010', name: RULES.R010, description: '高风险问题牵涉停工/外协/法规更新时，整改方案、CAPA措施、延期申请、主管审批必须分层记录' },
+    { id: 'R011', name: RULES.R011, description: '同类问题在半年内重复出现时，自动关联历史轮次，对比整改效果' },
+    { id: 'R012', name: RULES.R012, description: '复查照片、监测数据和客户确认一旦作为关闭依据提交，只能追加补证，不能覆盖原证据' },
+    { id: 'R013', name: RULES.R013, description: '复发问题需重新评估风险等级，拉低风险评分' },
+    { id: 'R014', name: RULES.R014, description: '高风险问题牵涉停工、外协供应商和法规条款更新时触发自动升级' },
   ]
+}
+
+export function checkHighRiskEscalationRequired(issue: any): { required: boolean; reason?: string } {
+  if (issue.severity !== 'high') return { required: false }
+  const triggers = []
+  if (issue.involvesWorkStop) triggers.push('牵涉停工')
+  if (issue.involvesExternalSupplier) triggers.push('牵涉外协供应商')
+  if (issue.regulationUpdate) triggers.push('法规条款更新')
+  if (triggers.length > 0) {
+    return { required: true, reason: `高风险问题${triggers.join('、')}，需按R010/R014分层记录并升级审批` }
+  }
+  return { required: false }
+}
+
+export function checkLayeredRecordsComplete(issueId: string): { complete: boolean; missing: string[] } {
+  const layeredRecords = filterCollection<any>('layeredRecords', (r) => r.issueId === issueId && r.status === 'approved')
+  const requiredTypes = ['rectification_plan', 'capa_measures', 'supervisor_approval']
+  const existingTypes = new Set(layeredRecords.map((r) => r.type))
+  const missing = requiredTypes.filter((t) => !existingTypes.has(t))
+  return { complete: missing.length === 0, missing }
+}
+
+export function findSimilarIssuesWithinWindow(
+  issue: any,
+  windowDays: number = RECURRENCE_DETECTION_WINDOW_DAYS
+): any[] {
+  const issues = getCollection<any>('issues')
+  const now = Date.now()
+  const windowMs = windowDays * 86400000
+  return issues.filter((i) => {
+    if (i.id === issue.id) return false
+    if (i.status === 'submitted') return false
+    const createdTime = new Date(i.createdAt).getTime()
+    const ageMs = now - createdTime
+    if (ageMs > windowMs) return false
+    const titleSimilar =
+      i.title.toLowerCase().includes(issue.title.toLowerCase()) ||
+      issue.title.toLowerCase().includes(i.title.toLowerCase())
+    const regulationSimilar = i.regulationClause === issue.regulationClause
+    const descSimilar =
+      i.description.toLowerCase().includes(issue.description.substring(0, 20).toLowerCase()) ||
+      issue.description.toLowerCase().includes(i.description.substring(0, 20).toLowerCase())
+    return titleSimilar || regulationSimilar || descSimilar
+  })
+}
+
+export function createRecurrenceLink(
+  issueId: string,
+  originalIssueId: string,
+  linkedBy: string,
+  comparisonAnalysis?: string
+): any {
+  const existingLinks = filterCollection<any>('recurrenceLinks', (l) => l.originalIssueId === originalIssueId)
+  const recurrenceRound = existingLinks.length + 1
+  const link = {
+    id: generateId(),
+    issueId,
+    originalIssueId,
+    recurrenceRound,
+    recurrenceDate: new Date().toISOString(),
+    comparisonAnalysis: comparisonAnalysis || null,
+    riskAdjustment: 0,
+    effectivenessScore: null,
+    linkedBy,
+  }
+  addToCollection('recurrenceLinks', link)
+  return link
+}
+
+export function checkClosureEvidenceLocked(issueId: string): { locked: boolean; evidence?: any[] } {
+  const issue = findInCollection<any>('issues', issueId)
+  if (!issue) return { locked: false }
+  if (issue.closureEvidenceLocked) {
+    const photos = filterCollection<any>('photos', (p) => p.issueId === issueId && p.isClosureEvidence)
+    const monitoring = filterCollection<any>('monitoringData', (m) => m.issueId === issueId && m.isClosureEvidence)
+    const confirmations = filterCollection<any>(
+      'clientConfirmations',
+      (c) => c.issueId === issueId && c.isClosureEvidence
+    )
+    return { locked: true, evidence: [...photos, ...monitoring, ...confirmations] }
+  }
+  return { locked: false }
+}
+
+export function canModifyEvidence(issueId: string, evidenceId: string): { allowed: boolean; reason?: string } {
+  const lockCheck = checkClosureEvidenceLocked(issueId)
+  if (!lockCheck.locked) return { allowed: true }
+  const photos = filterCollection<any>('photos', (p) => p.issueId === issueId && p.isClosureEvidence)
+  const monitoring = filterCollection<any>('monitoringData', (m) => m.issueId === issueId && m.isClosureEvidence)
+  const confirmations = filterCollection<any>(
+    'clientConfirmations',
+    (c) => c.issueId === issueId && c.isClosureEvidence
+  )
+  const allEvidence = [...photos, ...monitoring, ...confirmations]
+  const isLockedEvidence = allEvidence.some((e) => e.id === evidenceId)
+  if (isLockedEvidence) {
+    return { allowed: false, reason: '此证据已作为关闭依据锁定，仅可追加补证，不可修改或删除（R012）' }
+  }
+  return { allowed: true }
+}
+
+export function calculateEffectivenessScore(originalIssue: any, recurrentIssue: any): number {
+  const originalDays = Math.max(
+    1,
+    Math.ceil((new Date(originalIssue.deadline).getTime() - new Date(originalIssue.createdAt).getTime()) / 86400000)
+  )
+  const recurrentDays = Math.max(
+    1,
+    Math.ceil((new Date(recurrentIssue.deadline).getTime() - new Date(recurrentIssue.createdAt).getTime()) / 86400000)
+  )
+  const timeRatio = Math.min(1, recurrentDays / originalDays)
+  const severityWeight = originalIssue.severity === 'high' ? 1.5 : originalIssue.severity === 'medium' ? 1 : 0.5
+  const baseScore = 100 - (timeRatio * 50 + severityWeight * 20)
+  return Math.max(0, Math.min(100, Math.round(baseScore)))
+}
+
+export function reevaluateRiskForRecurrence(
+  issueId: string,
+  recurrenceRound: number,
+  reevaluatedBy: string
+): { previousSeverity: string; newSeverity: string; adjustmentPoints: number } {
+  const issue = findInCollection<any>('issues', issueId)
+  if (!issue) throw new Error('问题不存在')
+  const previousSeverity = issue.severity
+  let newSeverity = previousSeverity
+  let adjustmentPoints = 0
+  if (recurrenceRound >= 3) {
+    newSeverity = 'high'
+    adjustmentPoints = SEVERITY_DEDUCTION['high'] * 2
+  } else if (recurrenceRound === 2) {
+    if (previousSeverity === 'low') newSeverity = 'medium'
+    else if (previousSeverity === 'medium') newSeverity = 'high'
+    adjustmentPoints = calculateRiskDeduction(previousSeverity, true)
+  }
+  const riskScores = getCollection<any>('riskScores')
+  if (riskScores.length > 0) {
+    updateInCollection('riskScores', riskScores[0].id, {
+      score: riskScores[0].score - adjustmentPoints,
+      updatedAt: new Date().toISOString(),
+    })
+  }
+  const reevaluation = {
+    id: generateId(),
+    issueId,
+    previousSeverity,
+    newSeverity,
+    result: newSeverity !== previousSeverity ? (newSeverity === 'high' ? 'increased' : 'decreased') : 'unchanged',
+    reason: `问题第${recurrenceRound}次复发，按R013重新评估风险等级`,
+    reevaluatedBy,
+    reevaluatedAt: new Date().toISOString(),
+    adjustmentPoints,
+  }
+  addToCollection('riskReevaluations', reevaluation)
+  updateInCollection('issues', issueId, {
+    severity: newSeverity,
+    riskScoreDeduction: (issue.riskScoreDeduction || 0) + adjustmentPoints,
+    version: incrementVersion(issue),
+  })
+  const deduction = {
+    id: generateId(),
+    riskScoreId: riskScores[0]?.id || generateId(),
+    issueId,
+    reason: `复发风险重评：${previousSeverity}→${newSeverity}`,
+    points: adjustmentPoints,
+    createdAt: new Date().toISOString(),
+  }
+  addToCollection('riskDeductions', deduction)
+  createAuditLog(
+    issueId,
+    'risk_reevaluated',
+    reevaluatedBy,
+    'supervisor',
+    `风险等级由${previousSeverity}重新评估为${newSeverity}，扣减${adjustmentPoints}分（R013）`
+  )
+  return { previousSeverity, newSeverity, adjustmentPoints }
+}
+
+export function createLayeredRecord(
+  issueId: string,
+  type: string,
+  content: string,
+  submittedBy: string
+): any {
+  const existing = filterCollection<any>('layeredRecords', (r) => r.issueId === issueId && r.type === type)
+  const version = existing.length > 0 ? Math.max(...existing.map((r) => r.version)) + 1 : 1
+  const record = {
+    id: generateId(),
+    issueId,
+    type,
+    content,
+    submittedBy,
+    submittedAt: new Date().toISOString(),
+    status: 'submitted',
+    version,
+    approvedBy: null,
+    approvedAt: null,
+    comment: null,
+  }
+  addToCollection('layeredRecords', record)
+  const users = getCollection<any>('users')
+  const user = users.find((u: any) => u.id === submittedBy)
+  const typeLabels: Record<string, string> = {
+    rectification_plan: '整改方案',
+    capa_measures: 'CAPA措施',
+    extension_request: '延期申请',
+    supervisor_approval: '主管审批',
+  }
+  createAuditLog(
+    issueId,
+    'layered_record_submitted',
+    user?.name || submittedBy,
+    user?.role || 'responsible',
+    `提交分层记录-${typeLabels[type] || type}（R010）`
+  )
+  return record
+}
+
+export function getRecurrenceHistory(originalIssueId: string): any[] {
+  const links = filterCollection<any>('recurrenceLinks', (l) => l.originalIssueId === originalIssueId)
+  const history = links.map((link) => {
+    const issue = findInCollection<any>('issues', link.issueId)
+    return {
+      ...link,
+      issue,
+    }
+  })
+  return history.sort((a, b) => a.recurrenceRound - b.recurrenceRound)
+}
+
+export function getIssueRecurrenceRound(issueId: string): number {
+  const links = filterCollection<any>('recurrenceLinks', (l) => l.issueId === issueId)
+  return links.length > 0 ? Math.max(...links.map((l) => l.recurrenceRound)) : 0
 }

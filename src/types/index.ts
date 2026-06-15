@@ -14,8 +14,13 @@ export type PlanStatus = 'submitted' | 'approved' | 'rejected'
 export type ReinspectionResult = 'pending' | 'pass' | 'fail'
 export type PhotoCategory = 'evidence' | 'remediation' | 'reinspection'
 export type ApprovalDecision = 'approved' | 'rejected'
-export type ApprovalType = 'plan_approval' | 'extension_approval'
+export type ApprovalType = 'plan_approval' | 'extension_approval' | 'layered_approval'
 export type ExtensionStatus = 'pending' | 'approved' | 'rejected'
+
+export type LayeredRecordType = 'rectification_plan' | 'capa_measures' | 'extension_request' | 'supervisor_approval'
+export type LayeredRecordStatus = 'draft' | 'submitted' | 'approved' | 'rejected'
+export type ClosureEvidenceType = 'photo' | 'monitoring' | 'client_confirmation'
+export type RiskReevaluationResult = 'increased' | 'decreased' | 'unchanged'
 
 export interface User {
   id: string
@@ -40,6 +45,11 @@ export interface Issue {
   isRecurrent: boolean
   originalIssueId: string | null
   riskScoreDeduction: number
+  involvesWorkStop: boolean
+  involvesExternalSupplier: boolean
+  regulationUpdate: string | null
+  recurrenceRound: number
+  closureEvidenceLocked: boolean
 }
 
 export interface IssueDetail extends Issue {
@@ -49,6 +59,11 @@ export interface IssueDetail extends Issue {
   approvals: ApprovalRecord[]
   extensions: ExtensionRequest[]
   auditLogs: AuditLog[]
+  layeredRecords: LayeredRecord[]
+  recurrenceLinks: RecurrenceLink[]
+  monitoringData: MonitoringData[]
+  clientConfirmations: ClientConfirmation[]
+  riskReevaluations: RiskReevaluation[]
 }
 
 export interface RemediationPlan {
@@ -85,6 +100,70 @@ export interface Photo {
   url: string
   uploadedAt: string
   uploadedBy: string
+  isClosureEvidence: boolean
+  evidenceVersion: number
+  isSupplemental: boolean
+  parentPhotoId: string | null
+}
+
+export interface LayeredRecord {
+  id: string
+  issueId: string
+  type: LayeredRecordType
+  content: string
+  submittedBy: string
+  submittedAt: string
+  status: LayeredRecordStatus
+  version: number
+  approvedBy: string | null
+  approvedAt: string | null
+  comment: string | null
+}
+
+export interface RecurrenceLink {
+  id: string
+  issueId: string
+  originalIssueId: string
+  recurrenceRound: number
+  recurrenceDate: string
+  comparisonAnalysis: string | null
+  riskAdjustment: number
+  effectivenessScore: number | null
+  linkedBy: string
+}
+
+export interface MonitoringData {
+  id: string
+  issueId: string
+  type: string
+  value: string
+  unit: string | null
+  measuredAt: string
+  measuredBy: string
+  isClosureEvidence: boolean
+  notes: string | null
+}
+
+export interface ClientConfirmation {
+  id: string
+  issueId: string
+  confirmedBy: string
+  confirmedAt: string
+  confirmationContent: string
+  isClosureEvidence: boolean
+  contactInfo: string | null
+}
+
+export interface RiskReevaluation {
+  id: string
+  issueId: string
+  previousSeverity: IssueSeverity
+  newSeverity: IssueSeverity
+  result: RiskReevaluationResult
+  reason: string
+  reevaluatedBy: string
+  reevaluatedAt: string
+  adjustmentPoints: number
 }
 
 export interface ApprovalRecord {
@@ -157,4 +236,24 @@ export const ROLE_LABELS: Record<string, string> = {
   responsible: '企业负责人',
   safety: '安全专员',
   supervisor: '主管',
+}
+
+export const LAYERED_RECORD_TYPE_LABELS: Record<LayeredRecordType, string> = {
+  rectification_plan: '整改方案',
+  capa_measures: 'CAPA措施',
+  extension_request: '延期申请',
+  supervisor_approval: '主管审批',
+}
+
+export const LAYERED_RECORD_STATUS_LABELS: Record<LayeredRecordStatus, string> = {
+  draft: '草稿',
+  submitted: '已提交',
+  approved: '已批准',
+  rejected: '已驳回',
+}
+
+export const CLOSURE_EVIDENCE_TYPE_LABELS: Record<ClosureEvidenceType, string> = {
+  photo: '复查照片',
+  monitoring: '监测数据',
+  client_confirmation: '客户确认',
 }

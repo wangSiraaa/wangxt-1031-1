@@ -21,6 +21,9 @@ export default function IssueNew() {
   const [description, setDescription] = useState('')
   const [deadline, setDeadline] = useState('')
   const [clientConfirmationRequired, setClientConfirmationRequired] = useState(false)
+  const [involvesWorkStop, setInvolvesWorkStop] = useState(false)
+  const [involvesExternalSupplier, setInvolvesExternalSupplier] = useState(false)
+  const [regulationUpdate, setRegulationUpdate] = useState(false)
   const [photoCount, setPhotoCount] = useState(0)
 
   const handleSubmit = async () => {
@@ -32,6 +35,9 @@ export default function IssueNew() {
       description: description.trim(),
       deadline,
       clientConfirmationRequired,
+      involvesWorkStop,
+      involvesExternalSupplier,
+      regulationUpdate,
       createdBy: currentUser.id,
     })
     navigate('/issues')
@@ -131,6 +137,51 @@ export default function IssueNew() {
                 className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition-transform ${clientConfirmationRequired ? 'translate-x-5' : ''}`}
               />
             </button>
+          </div>
+
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 space-y-3">
+            <div className="text-sm font-medium text-red-800 mb-2">高风险升级标记（同时勾选将触发高风险升级）</div>
+            <div className="flex items-center justify-between">
+              <label className="text-sm text-gray-700">牵涉停工</label>
+              <button
+                type="button"
+                onClick={() => setInvolvesWorkStop((v) => !v)}
+                className={`relative w-11 h-6 rounded-full transition-colors ${involvesWorkStop ? 'bg-red-500' : 'bg-gray-300'}`}
+              >
+                <span
+                  className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition-transform ${involvesWorkStop ? 'translate-x-5' : ''}`}
+                />
+              </button>
+            </div>
+            <div className="flex items-center justify-between">
+              <label className="text-sm text-gray-700">牵涉外协供应商</label>
+              <button
+                type="button"
+                onClick={() => setInvolvesExternalSupplier((v) => !v)}
+                className={`relative w-11 h-6 rounded-full transition-colors ${involvesExternalSupplier ? 'bg-red-500' : 'bg-gray-300'}`}
+              >
+                <span
+                  className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition-transform ${involvesExternalSupplier ? 'translate-x-5' : ''}`}
+                />
+              </button>
+            </div>
+            <div className="flex items-center justify-between">
+              <label className="text-sm text-gray-700">法规条款更新</label>
+              <button
+                type="button"
+                onClick={() => setRegulationUpdate((v) => !v)}
+                className={`relative w-11 h-6 rounded-full transition-colors ${regulationUpdate ? 'bg-red-500' : 'bg-gray-300'}`}
+              >
+                <span
+                  className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition-transform ${regulationUpdate ? 'translate-x-5' : ''}`}
+                />
+              </button>
+            </div>
+            {involvesWorkStop && involvesExternalSupplier && regulationUpdate && (
+              <div className="text-xs text-red-600 bg-red-100 p-2 rounded">
+                ⚠️ 高风险升级：系统将自动扣减风险评分30分（R014），并要求分层记录整改方案、CAPA措施、延期申请和主管审批（R010）。
+              </div>
+            )}
           </div>
 
           <div>

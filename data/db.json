@@ -24,7 +24,7 @@
   "issues": [
     {
       "id": "ISS-001",
-      "version": 3,
+      "version": 2,
       "title": "高温管道未设置隔热防护",
       "regulationClause": "GB/T 15706-2012 第4.2.1条",
       "severity": "high",
@@ -39,7 +39,11 @@
       "isRecurrent": false,
       "originalIssueId": null,
       "riskScoreDeduction": 15,
-      "updatedBy": "responsible1"
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-002",
@@ -57,7 +61,12 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 12
+      "riskScoreDeduction": 12,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-003",
@@ -75,15 +84,20 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 8
+      "riskScoreDeduction": 8,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-004",
-      "version": 1,
+      "version": 2,
       "title": "危化品储存区未设置泄漏报警",
       "regulationClause": "GB 15603-2022 第4.3.2条",
       "severity": "high",
-      "description": "危化品储存区域未安装泄漏报警装置，存在重大安全隐患",
+      "description": "危化品储存区域未安装泄漏报警装置，存在重大安全隐患。逾期超过30天，已升级红榜。",
       "clientConfirmationRequired": true,
       "status": "overdue",
       "createdAt": "2026-05-20T13:24:56.475Z",
@@ -93,15 +107,20 @@
       "isOverdue": true,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 40
+      "riskScoreDeduction": 40,
+      "involvesWorkStop": true,
+      "involvesExternalSupplier": true,
+      "regulationUpdate": "GB 15603-2022于2026-04-01正式实施",
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-005",
       "version": 2,
-      "title": "安全出口标识不清晰(复发)",
+      "title": "安全出口标识不清晰(复发-第1轮)",
       "regulationClause": "GB 13495.1-2015 第3.1条",
       "severity": "medium",
-      "description": "A区安全出口标识再次出现不清晰问题，此前已整改关闭",
+      "description": "A区安全出口标识再次出现不清晰问题，此前已整改关闭。同类问题半年内复发。",
       "clientConfirmationRequired": false,
       "status": "reopened",
       "createdAt": "2026-06-11T13:24:56.475Z",
@@ -111,15 +130,20 @@
       "isOverdue": false,
       "isRecurrent": true,
       "originalIssueId": "ISS-006",
-      "riskScoreDeduction": 20
+      "riskScoreDeduction": 25,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 1,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-006",
       "version": 2,
-      "title": "安全出口标识不清晰",
+      "title": "安全出口标识不清晰(原始-已闭环)",
       "regulationClause": "GB 13495.1-2015 第3.1条",
       "severity": "medium",
-      "description": "A区安全出口标识模糊不清，影响紧急疏散指引",
+      "description": "A区安全出口标识模糊不清，影响紧急疏散指引。已整改闭环。",
       "clientConfirmationRequired": false,
       "status": "closed",
       "createdAt": "2026-04-30T13:24:56.475Z",
@@ -129,7 +153,12 @@
       "isOverdue": false,
       "isRecurrent": true,
       "originalIssueId": null,
-      "riskScoreDeduction": 5
+      "riskScoreDeduction": 5,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": true
     },
     {
       "id": "ISS-007",
@@ -147,7 +176,12 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 15
+      "riskScoreDeduction": 15,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-008",
@@ -165,7 +199,12 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 8
+      "riskScoreDeduction": 8,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-009",
@@ -183,7 +222,12 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 3
+      "riskScoreDeduction": 3,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-010",
@@ -201,7 +245,12 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 18
+      "riskScoreDeduction": 18,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": true
     },
     {
       "id": "ISS-011",
@@ -219,7 +268,12 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 20
+      "riskScoreDeduction": 20,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-012",
@@ -237,25 +291,58 @@
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 2
+      "riskScoreDeduction": 2,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     },
     {
       "id": "ISS-013",
-      "version": 4,
-      "title": "越权测试-高风险问题",
-      "regulationClause": "GB/T 15706-2012",
+      "version": 2,
+      "title": "涂装车间废气处理设施失效(高风险升级)",
+      "regulationClause": "GB 16297-1996 第4.2条",
       "severity": "high",
-      "description": "测试高风险审批门控",
+      "description": "涂装车间废气处理设施完全失效，VOC超标排放3倍以上。需立即停产整改，牵涉外协设备供应商，且新修订的《大气污染防治法》条款2026年5月1日生效，处罚标准提高5倍。",
       "clientConfirmationRequired": true,
       "status": "in_remediation",
-      "createdAt": "2026-06-15T15:31:32.115Z",
-      "deadline": "2026-06-30T15:31:32.115Z",
+      "createdAt": "2026-06-14T09:00:00.000Z",
+      "deadline": "2026-06-30T09:00:00.000Z",
       "createdBy": "auditor1",
       "assignedTo": "responsible1",
       "isOverdue": false,
       "isRecurrent": false,
       "originalIssueId": null,
-      "riskScoreDeduction": 20
+      "riskScoreDeduction": 45,
+      "involvesWorkStop": true,
+      "involvesExternalSupplier": true,
+      "regulationUpdate": "《大气污染防治法》修订版2026-05-01生效，超标排放处罚从10万提高到50万",
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
+    },
+    {
+      "id": "ISS-014",
+      "version": 2,
+      "title": "员工宿舍消防应急灯损坏(照片缺失)",
+      "regulationClause": "GB 50016-2014 第10.3.3条",
+      "severity": "medium",
+      "description": "员工宿舍3楼消防应急灯损坏，断电时无法提供应急照明。尝试关闭但缺少复查照片证据，系统拦截。",
+      "clientConfirmationRequired": false,
+      "status": "reinspection_in_progress",
+      "createdAt": "2026-06-10T09:00:00.000Z",
+      "deadline": "2026-06-25T09:00:00.000Z",
+      "createdBy": "auditor1",
+      "assignedTo": "responsible1",
+      "isOverdue": false,
+      "isRecurrent": false,
+      "originalIssueId": null,
+      "riskScoreDeduction": 8,
+      "involvesWorkStop": false,
+      "involvesExternalSupplier": false,
+      "regulationUpdate": null,
+      "recurrenceRound": 0,
+      "closureEvidenceLocked": false
     }
   ],
   "remediationPlans": [
@@ -410,19 +497,34 @@
       "createdAt": "2026-05-03T13:24:56.476Z"
     },
     {
-      "id": "3cf5a242-bb50-41d1-948b-01c879510972",
+      "id": "plan-iss013-001",
       "issueId": "ISS-013",
       "version": 1,
-      "rootCause": "管道隔热材料老化",
-      "plan": "更换隔热防护层",
-      "capaMeasures": "建立定期巡检制度",
+      "rootCause": "废气处理设备年久失修，核心过滤组件损坏；外协设备供应商维保不到位；新法规要求更严格的排放限值",
+      "plan": "1. 立即停产（预计7天）；2. 通知外协供应商到场检测评估；3. 更换核心过滤组件；4. 升级在线监测系统；5. 编制新的设备维保手册。",
+      "capaMeasures": "1. 与外协供应商重新签订维保合同，明确责任；2. 建立设备运行台账，每日巡检；3. 每季度组织法规培训；4. 设置设备健康度评分机制。",
       "responsiblePerson": "responsible1",
-      "deadline": "2026-06-30T15:31:32.115Z",
+      "deadline": "2026-06-30T09:00:00.000Z",
       "status": "approved",
       "approvedBy": "supervisor1",
-      "approvedAt": "2026-06-15T15:32:20.282Z",
+      "approvedAt": "2026-06-15T21:16:31.126Z",
       "createdBy": "responsible1",
-      "createdAt": "2026-06-15T15:32:20.205Z"
+      "createdAt": "2026-06-14T10:30:00.000Z"
+    },
+    {
+      "id": "plan-iss014-001",
+      "issueId": "ISS-014",
+      "version": 1,
+      "rootCause": "应急灯使用超龄，电池失效",
+      "plan": "采购并更换3楼所有应急灯",
+      "capaMeasures": "建立消防器材台账，每半年检查一次",
+      "responsiblePerson": "responsible1",
+      "deadline": "2026-06-22T09:00:00.000Z",
+      "status": "approved",
+      "approvedBy": "supervisor1",
+      "approvedAt": "2026-06-12T09:00:00.000Z",
+      "createdBy": "responsible1",
+      "createdAt": "2026-06-11T09:00:00.000Z"
     }
   ],
   "reinspections": [
@@ -445,6 +547,36 @@
       "notes": "安全阀已更换并校验合格，相关证书齐全",
       "inspector": "safety1",
       "createdAt": "2026-06-11T13:24:56.476Z"
+    },
+    {
+      "id": "reinspect-iss014-001",
+      "issueId": "ISS-014",
+      "planDate": "2026-06-23T09:00:00.000Z",
+      "actualDate": "2026-06-23T09:00:00.000Z",
+      "result": "pass",
+      "notes": "应急灯已全部更换，测试正常。尝试提交关闭，但缺少复查照片，系统拦截。",
+      "inspector": "safety1",
+      "createdAt": "2026-06-23T09:00:00.000Z"
+    },
+    {
+      "id": "reinspect-iss006-001",
+      "issueId": "ISS-006",
+      "planDate": "2026-05-23T13:24:56.476Z",
+      "actualDate": "2026-05-23T13:24:56.476Z",
+      "result": "pass",
+      "notes": "安全出口标识已全部更换，标识清晰",
+      "inspector": "safety1",
+      "createdAt": "2026-05-23T13:24:56.476Z"
+    },
+    {
+      "id": "d9eb8fde-4018-47a6-960e-6e73faca1381",
+      "issueId": "ISS-014",
+      "planDate": "2026-06-15T16:42:25.709Z",
+      "actualDate": "2026-06-15T16:42:25.709Z",
+      "result": "pending",
+      "notes": "",
+      "inspector": "auditor1",
+      "createdAt": "2026-06-15T16:42:25.730Z"
     }
   ],
   "photos": [
@@ -454,7 +586,11 @@
       "category": "evidence",
       "url": "/uploads/iss001-evidence1.jpg",
       "uploadedAt": "2026-06-09T13:24:56.476Z",
-      "uploadedBy": "auditor1"
+      "uploadedBy": "auditor1",
+      "isClosureEvidence": false,
+      "evidenceVersion": 1,
+      "isSupplemental": false,
+      "parentPhotoId": null
     },
     {
       "id": "2294e405-b0da-49c7-a90c-d9f548f24805",
@@ -462,7 +598,11 @@
       "category": "evidence",
       "url": "/uploads/iss001-evidence2.jpg",
       "uploadedAt": "2026-06-09T13:24:56.476Z",
-      "uploadedBy": "auditor1"
+      "uploadedBy": "auditor1",
+      "isClosureEvidence": false,
+      "evidenceVersion": 2,
+      "isSupplemental": false,
+      "parentPhotoId": null
     },
     {
       "id": "2c7a375d-e64f-4c79-aab9-74c6ea05ccdd",
@@ -470,7 +610,11 @@
       "category": "evidence",
       "url": "/uploads/iss002-evidence1.jpg",
       "uploadedAt": "2026-06-05T13:24:56.476Z",
-      "uploadedBy": "auditor1"
+      "uploadedBy": "auditor1",
+      "isClosureEvidence": false,
+      "evidenceVersion": 1,
+      "isSupplemental": false,
+      "parentPhotoId": null
     },
     {
       "id": "ad971ac7-53d4-4e50-bb11-723360c3fb48",
@@ -478,7 +622,11 @@
       "category": "evidence",
       "url": "/uploads/iss004-evidence1.jpg",
       "uploadedAt": "2026-05-20T13:24:56.476Z",
-      "uploadedBy": "auditor1"
+      "uploadedBy": "auditor1",
+      "isClosureEvidence": false,
+      "evidenceVersion": 1,
+      "isSupplemental": false,
+      "parentPhotoId": null
     },
     {
       "id": "ebe8dbb9-0479-4795-b1f0-918517763a99",
@@ -486,7 +634,11 @@
       "category": "reinspection",
       "url": "/uploads/iss010-reinspection1.jpg",
       "uploadedAt": "2026-06-12T13:24:56.476Z",
-      "uploadedBy": "safety1"
+      "uploadedBy": "safety1",
+      "isClosureEvidence": true,
+      "evidenceVersion": 1,
+      "isSupplemental": false,
+      "parentPhotoId": null
     },
     {
       "id": "b08dd569-4d9c-4897-b3f6-082dfa704d57",
@@ -494,7 +646,47 @@
       "category": "reinspection",
       "url": "/uploads/iss010-reinspection2.jpg",
       "uploadedAt": "2026-06-12T13:24:56.476Z",
-      "uploadedBy": "safety1"
+      "uploadedBy": "safety1",
+      "isClosureEvidence": true,
+      "evidenceVersion": 2,
+      "isSupplemental": false,
+      "parentPhotoId": null
+    },
+    {
+      "id": "photo-iss006-reinspect",
+      "issueId": "ISS-006",
+      "category": "reinspection",
+      "url": "/uploads/iss006-reinspect-closed.jpg",
+      "uploadedAt": "2026-05-23T13:24:56.476Z",
+      "uploadedBy": "safety1",
+      "isClosureEvidence": true,
+      "evidenceVersion": 1,
+      "isSupplemental": false,
+      "parentPhotoId": null
+    },
+    {
+      "id": "photo-iss006-supplement",
+      "issueId": "ISS-006",
+      "category": "reinspection",
+      "url": "/uploads/iss006-reinspect-supplement.jpg",
+      "uploadedAt": "2026-06-01T13:24:56.476Z",
+      "uploadedBy": "safety1",
+      "isClosureEvidence": true,
+      "evidenceVersion": 2,
+      "isSupplemental": true,
+      "parentPhotoId": "photo-iss006-reinspect"
+    },
+    {
+      "id": "photo-iss010-supplement",
+      "issueId": "ISS-010",
+      "category": "reinspection",
+      "url": "/uploads/iss010-reinspection-supplement.jpg",
+      "uploadedAt": "2026-06-13T13:24:56.476Z",
+      "uploadedBy": "safety1",
+      "isClosureEvidence": true,
+      "evidenceVersion": 3,
+      "isSupplemental": true,
+      "parentPhotoId": "b08dd569-4d9c-4897-b3f6-082dfa704d57"
     }
   ],
   "extensionRequests": [
@@ -510,11 +702,20 @@
     {
       "id": "f3ae70ef-b28b-42b3-9947-d187b8874bba",
       "issueId": "ISS-004",
-      "reason": "预算审批流程较长，需延长整改期限",
+      "reason": "预算审批流程较长，需延长整改期限。逾期已超30天，升级红榜。",
       "requestedDeadline": "2026-06-20T13:24:56.476Z",
       "status": "pending",
       "approvedBy": null,
       "createdAt": "2026-06-05T13:24:56.476Z"
+    },
+    {
+      "id": "ext-iss013-001",
+      "issueId": "ISS-013",
+      "reason": "外协供应商设备定制周期需15天，需申请延期至7月15日",
+      "requestedDeadline": "2026-07-15T09:00:00.000Z",
+      "status": "submitted",
+      "approvedBy": null,
+      "createdAt": "2026-06-14T14:00:00.000Z"
     }
   ],
   "approvalRecords": [
@@ -555,15 +756,15 @@
       "createdAt": "2026-06-09T13:24:56.476Z"
     },
     {
-      "id": "0d46b4b5-c99c-48e3-a944-21695ff52443",
+      "id": "fb6bf8eb-e3f2-4c1b-9930-2e98f1f15701",
       "issueId": "ISS-013",
       "type": "plan_approval",
       "approver": "supervisor1",
       "approverRole": "supervisor",
       "approverName": "赵主管",
       "decision": "approved",
-      "comment": "主管审批通过整改方案",
-      "createdAt": "2026-06-15T15:32:20.283Z"
+      "comment": "同意按停工整改执行",
+      "createdAt": "2026-06-15T21:16:31.127Z"
     }
   ],
   "auditLogs": [
@@ -631,12 +832,21 @@
       "timestamp": "2026-06-06T13:24:56.476Z"
     },
     {
+      "id": "audit-iss004-redboard",
+      "issueId": "ISS-004",
+      "action": "redboard_escalation",
+      "actor": "系统",
+      "role": "system",
+      "details": "问题逾期超过30天，升级至红榜。企业负责人需亲自督办（R008）。",
+      "timestamp": "2026-06-13T09:00:00.000Z"
+    },
+    {
       "id": "37a0e485-2dc8-46e3-aaf0-708531b71449",
       "issueId": "ISS-005",
       "action": "issue_reopened",
       "actor": "张审计",
       "role": "auditor",
-      "details": "问题复发，重新打开，关联原始问题ISS-006",
+      "details": "问题复发，重新打开，关联原始问题ISS-006（R011）",
       "timestamp": "2026-06-11T13:24:56.476Z"
     },
     {
@@ -663,123 +873,105 @@
       "action": "risk_deducted",
       "actor": "张审计",
       "role": "auditor",
-      "details": "问题复发扣分：安全出口标识不清晰，扣减10风险分",
+      "details": "问题复发扣分：安全出口标识不清晰，扣减10风险分（R013）",
       "timestamp": "2026-06-11T13:24:56.476Z"
     },
     {
-      "id": "831aaac6-ed6b-45bf-bd7b-c937c3366eaa",
-      "issueId": "ISS-005",
-      "action": "plan_approval_unauthorized",
-      "actor": "张审计",
-      "role": "auditor",
-      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 张审计（审厂员）无主管审批权限，仅主管角色可执行审批操作（R009）",
-      "timestamp": "2026-06-15T15:30:35.303Z"
+      "id": "audit-iss013-escalation",
+      "issueId": "ISS-013",
+      "action": "high_risk_escalation",
+      "actor": "系统",
+      "role": "system",
+      "details": "高风险问题牵涉停工、外协供应商、法规条款更新，需分层记录并主管审批（R010、R014）。额外扣减30风险分。",
+      "timestamp": "2026-06-14T09:00:00.000Z"
     },
     {
-      "id": "fa5aa0f3-a1e7-4ede-a8bd-ce37a70c220d",
-      "issueId": "ISS-005",
-      "action": "plan_approval_unauthorized",
+      "id": "audit-iss013-plan",
+      "issueId": "ISS-013",
+      "action": "layered_record_created",
       "actor": "李负责",
       "role": "responsible",
-      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 李负责（企业负责人）无主管审批权限，仅主管角色可执行审批操作（R009）",
-      "timestamp": "2026-06-15T15:30:35.670Z"
+      "details": "提交整改方案（第一层），等待主管审批（R010）",
+      "timestamp": "2026-06-14T10:30:00.000Z"
     },
     {
-      "id": "494374d3-954c-488e-9740-f316bfdc7620",
-      "issueId": "ISS-005",
-      "action": "plan_approval_unauthorized",
+      "id": "audit-iss013-capa",
+      "issueId": "ISS-013",
+      "action": "layered_record_created",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "提交CAPA措施（第二层），等待主管审批（R010）",
+      "timestamp": "2026-06-14T11:00:00.000Z"
+    },
+    {
+      "id": "audit-iss013-extension",
+      "issueId": "ISS-013",
+      "action": "layered_record_created",
+      "actor": "李负责",
+      "role": "responsible",
+      "details": "提交延期申请（第三层），等待主管审批（R010）",
+      "timestamp": "2026-06-14T14:00:00.000Z"
+    },
+    {
+      "id": "audit-iss014-photomissing",
+      "issueId": "ISS-014",
+      "action": "close_blocked",
+      "actor": "系统",
+      "role": "system",
+      "details": "尝试关闭问题失败：缺少复查照片证据（至少1张）。请先上传照片再提交关闭。",
+      "timestamp": "2026-06-23T10:00:00.000Z"
+    },
+    {
+      "id": "audit-iss006-locked",
+      "issueId": "ISS-006",
+      "action": "evidence_locked",
       "actor": "王安全",
       "role": "safety",
-      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 王安全（安全专员）无主管审批权限，仅主管角色可执行审批操作（R009）",
-      "timestamp": "2026-06-15T15:30:35.991Z"
+      "details": "复查照片已锁定为关闭依据（R012）",
+      "timestamp": "2026-05-23T13:24:56.476Z"
     },
     {
-      "id": "a64fcd35-8393-4ca6-a7bf-f4f8de0ec32d",
-      "issueId": "ISS-005",
-      "action": "plan_approval_unauthorized",
-      "actor": "张审计",
-      "role": "auditor",
-      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 张审计（审厂员）无主管审批权限，仅主管角色可执行审批操作（R009）",
-      "timestamp": "2026-06-15T15:30:42.901Z"
-    },
-    {
-      "id": "56e2c989-434f-41a2-9438-9d874b54e123",
-      "issueId": "ISS-005",
-      "action": "plan_approval_unauthorized",
-      "actor": "李负责",
-      "role": "responsible",
-      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 李负责（企业负责人）无主管审批权限，仅主管角色可执行审批操作（R009）",
-      "timestamp": "2026-06-15T15:30:51.162Z"
-    },
-    {
-      "id": "93164e05-f6b9-4ed7-af12-ddc3c040de86",
-      "issueId": "ISS-005",
-      "action": "plan_approval_unauthorized",
+      "id": "audit-iss006-supplement",
+      "issueId": "ISS-006",
+      "action": "evidence_supplemented",
       "actor": "王安全",
       "role": "safety",
-      "details": "【越权拦截】尝试审批整改方案 bf2ee34d-0113-4178-9c7a-7c743674c31c，用户 王安全（安全专员）无主管审批权限，仅主管角色可执行审批操作（R009）",
-      "timestamp": "2026-06-15T15:30:57.451Z"
+      "details": "追加补证照片（版本v2），原证据保持不变（R012）",
+      "timestamp": "2026-06-01T13:24:56.476Z"
     },
     {
-      "id": "160c35e1-6a3d-4978-9fd1-66a9ac33b67b",
-      "issueId": "ISS-001",
-      "action": "issue_updated",
-      "actor": "李负责",
-      "role": "responsible",
-      "details": "更新问题信息",
-      "timestamp": "2026-06-15T15:31:05.384Z"
+      "id": "audit-iss010-supplement",
+      "issueId": "ISS-010",
+      "action": "evidence_supplemented",
+      "actor": "王安全",
+      "role": "safety",
+      "details": "追加补证照片（版本v3），补充安全阀校验证书照片。原证据保持不变（R012）",
+      "timestamp": "2026-06-13T13:24:56.476Z"
     },
     {
-      "id": "71341184-1b86-44e3-b170-eeeb48464830",
-      "issueId": "ISS-013",
-      "action": "issue_created",
+      "id": "50cc8a20-f311-4b32-a410-afbe26af02b0",
+      "issueId": "ISS-014",
+      "action": "reinspection_started",
       "actor": "张审计",
-      "role": "auditor",
-      "details": "创建高风险问题：越权测试-高风险问题",
-      "timestamp": "2026-06-15T15:31:32.116Z"
+      "role": "safety",
+      "details": "开始复检",
+      "timestamp": "2026-06-15T16:42:25.732Z"
     },
     {
-      "id": "18457b0e-1fc7-457e-8fc5-ad0a9577e183",
-      "issueId": "ISS-013",
-      "action": "issue_assigned",
-      "actor": "李负责",
-      "role": "responsible",
-      "details": "问题已分派给李负责",
-      "timestamp": "2026-06-15T15:31:38.381Z"
-    },
-    {
-      "id": "7c48061b-3f16-4546-9732-add9b465fd2d",
-      "issueId": "ISS-013",
-      "action": "high_risk_bypass_blocked",
-      "actor": "李负责",
-      "role": "responsible",
-      "details": "【越权拦截】尝试将高风险问题直接推进到整改中，被审批门控拦截：高风险问题必须经主管审批整改方案后才能进入整改（R001）",
-      "timestamp": "2026-06-15T15:31:46.209Z"
-    },
-    {
-      "id": "84ce370f-2103-4935-bbd7-edf5ee7ac48f",
-      "issueId": "ISS-013",
-      "action": "plan_submitted",
-      "actor": "李负责",
-      "role": "responsible",
-      "details": "提交整改方案，因高风险需主管审批",
-      "timestamp": "2026-06-15T15:32:20.206Z"
-    },
-    {
-      "id": "c8d68675-8f49-4f61-9fdc-96e73c0f06fc",
+      "id": "c110b646-e6f3-4bc6-97e7-774d1064b000",
       "issueId": "ISS-013",
       "action": "plan_approved",
       "actor": "赵主管",
       "role": "supervisor",
-      "details": "主管审批通过整改方案：主管审批通过整改方案",
-      "timestamp": "2026-06-15T15:32:20.283Z"
+      "details": "主管审批通过整改方案：同意按停工整改执行",
+      "timestamp": "2026-06-15T21:16:31.127Z"
     }
   ],
   "riskScores": [
     {
       "id": "bae28c50-a887-4d63-a01d-f15f79644105",
-      "score": -196,
-      "updatedAt": "2026-06-15T15:31:32.116Z"
+      "score": -224,
+      "updatedAt": "2026-06-14T00:00:00.000Z"
     }
   ],
   "riskDeductions": [
@@ -811,8 +1003,16 @@
       "id": "cb7f2d9a-b52d-4e48-887f-372049f557ef",
       "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
       "issueId": "ISS-004",
-      "reason": "危化品储存区未设置泄漏报警 (high级)",
+      "reason": "危化品储存区未设置泄漏报警 (high级 + 停工+外协+法规更新)",
       "points": 20,
+      "createdAt": "2026-05-20T13:24:56.475Z"
+    },
+    {
+      "id": "deduct-iss004-escalation",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-004",
+      "reason": "高风险升级扣减（R014：停工+外协+法规更新）",
+      "points": 30,
       "createdAt": "2026-05-20T13:24:56.475Z"
     },
     {
@@ -835,8 +1035,8 @@
       "id": "19428e2d-9427-4be4-9e5a-92d8587476fa",
       "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
       "issueId": "ISS-005",
-      "reason": "问题复发扣分：安全出口标识不清晰",
-      "points": 10,
+      "reason": "问题复发扣分：安全出口标识不清晰（R013）",
+      "points": 15,
       "createdAt": "2026-06-11T13:24:56.476Z"
     },
     {
@@ -896,12 +1096,179 @@
       "createdAt": "2026-04-25T13:24:56.475Z"
     },
     {
-      "id": "29de5d53-8f61-49ac-8d61-a2343afa5a17",
+      "id": "deduct-iss013-base",
       "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
       "issueId": "ISS-013",
-      "reason": "越权测试-高风险问题 (high级)",
-      "points": 20,
-      "createdAt": "2026-06-15T15:31:32.115Z"
+      "reason": "涂装车间废气处理设施失效 (high级)",
+      "points": 15,
+      "createdAt": "2026-06-14T09:00:00.000Z"
+    },
+    {
+      "id": "deduct-iss013-escalation",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-013",
+      "reason": "高风险升级扣减（R014：停工+外协+法规更新）",
+      "points": 30,
+      "createdAt": "2026-06-14T09:00:00.000Z"
+    },
+    {
+      "id": "deduct-iss014-base",
+      "riskScoreId": "bae28c50-a887-4d63-a01d-f15f79644105",
+      "issueId": "ISS-014",
+      "reason": "员工宿舍消防应急灯损坏 (medium级)",
+      "points": 8,
+      "createdAt": "2026-06-10T09:00:00.000Z"
+    }
+  ],
+  "layeredRecords": [
+    {
+      "id": "lr-iss013-plan",
+      "issueId": "ISS-013",
+      "type": "rectification_plan",
+      "content": "1. 立即停产（预计7天）；2. 通知外协供应商到场检测评估；3. 更换核心过滤组件；4. 升级在线监测系统；5. 编制新的设备维保手册。",
+      "submittedBy": "responsible1",
+      "submittedAt": "2026-06-14T10:30:00.000Z",
+      "status": "submitted",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "reviewComment": null
+    },
+    {
+      "id": "lr-iss013-capa",
+      "issueId": "ISS-013",
+      "type": "capa_measures",
+      "content": "1. 与外协供应商重新签订维保合同，明确责任；2. 建立设备运行台账，每日巡检；3. 每季度组织法规培训；4. 设置设备健康度评分机制。",
+      "submittedBy": "responsible1",
+      "submittedAt": "2026-06-14T11:00:00.000Z",
+      "status": "submitted",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "reviewComment": null
+    },
+    {
+      "id": "lr-iss013-extension",
+      "issueId": "ISS-013",
+      "type": "extension_request",
+      "content": "外协供应商设备定制周期需15天，需申请延期至7月15日。原因：1. 核心过滤组件需从德国进口；2. 安装调试需5天；3. 第三方检测需3天。",
+      "submittedBy": "responsible1",
+      "submittedAt": "2026-06-14T14:00:00.000Z",
+      "status": "submitted",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "reviewComment": null
+    },
+    {
+      "id": "lr-iss013-supervisor",
+      "issueId": "ISS-013",
+      "type": "supervisor_approval",
+      "content": "待主管审批：需确认停工损失估算、外协供应商责任划分、法规合规性评估。预计审批时间：3个工作日。",
+      "submittedBy": "responsible1",
+      "submittedAt": "2026-06-14T14:30:00.000Z",
+      "status": "pending",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "reviewComment": null
+    },
+    {
+      "id": "lr-iss004-plan",
+      "issueId": "ISS-004",
+      "type": "rectification_plan",
+      "content": "申请专项预算采购泄漏报警装置并安装。预算金额：25万；供应商：上海安环科技；安装周期：10天。",
+      "submittedBy": "responsible1",
+      "submittedAt": "2026-05-27T09:00:00.000Z",
+      "status": "approved",
+      "reviewedBy": "supervisor1",
+      "reviewedAt": "2026-05-30T09:00:00.000Z",
+      "reviewComment": "同意，需确保设备符合GB 15603-2022新标准"
+    }
+  ],
+  "recurrenceLinks": [
+    {
+      "id": "rl-iss005-iss006",
+      "issueId": "ISS-005",
+      "originalIssueId": "ISS-006",
+      "recurrenceRound": 1,
+      "linkedBy": "auditor1",
+      "linkedAt": "2026-06-11T09:00:00.000Z",
+      "similarityScore": 95,
+      "comparisonAnalysis": "问题完全相同：A区安全出口标识不清晰。原始问题整改后42天复发，整改效果差。原因为使用普通纸质标识，易褪色。建议更换为LED发光标识。",
+      "effectivenessScore": 20
+    }
+  ],
+  "monitoringData": [
+    {
+      "id": "mon-iss013-002",
+      "issueId": "ISS-013",
+      "type": "air_quality",
+      "parameter": "VOC浓度",
+      "value": "175",
+      "unit": "mg/m³",
+      "standardLimit": "60",
+      "measuredAt": "2026-06-14T10:00:00.000Z",
+      "measuredBy": "safety1",
+      "isClosureEvidence": false,
+      "notes": "停产前监测，持续超标"
+    },
+    {
+      "id": "mon-iss013-001",
+      "issueId": "ISS-013",
+      "type": "air_quality",
+      "parameter": "VOC浓度",
+      "value": "180",
+      "unit": "mg/m³",
+      "standardLimit": "60",
+      "measuredAt": "2026-06-14T08:00:00.000Z",
+      "measuredBy": "safety1",
+      "isClosureEvidence": false,
+      "notes": "超标3倍，需立即停产"
+    },
+    {
+      "id": "mon-iss010-001",
+      "issueId": "ISS-010",
+      "type": "pressure_vessel",
+      "parameter": "安全阀整定压力",
+      "value": "1.05",
+      "unit": "MPa",
+      "standardLimit": "1.0",
+      "measuredAt": "2026-06-12T10:00:00.000Z",
+      "measuredBy": "safety1",
+      "isClosureEvidence": true,
+      "notes": "新安全阀校验合格，整定压力符合标准"
+    }
+  ],
+  "clientConfirmations": [
+    {
+      "id": "cc-iss010-001",
+      "issueId": "ISS-010",
+      "confirmedBy": "客户安全总监 刘总",
+      "confirmedAt": "2026-06-12T15:00:00.000Z",
+      "confirmationContent": "确认2号储气罐安全阀已更换并校验合格，相关证书齐全，同意闭环。",
+      "contactInfo": "13800138000",
+      "isClosureEvidence": true
+    },
+    {
+      "id": "cc-iss006-001",
+      "issueId": "ISS-006",
+      "confirmedBy": "客户EHS 陈经理",
+      "confirmedAt": "2026-05-23T16:00:00.000Z",
+      "confirmationContent": "确认安全出口标识已全部更换，标识清晰，符合要求。",
+      "contactInfo": "13900139000",
+      "isClosureEvidence": true
+    }
+  ],
+  "riskReevaluations": [
+    {
+      "id": "rr-iss005-001",
+      "issueId": "ISS-005",
+      "recurrenceRound": 1,
+      "previousRiskScore": 5,
+      "newRiskScore": 25,
+      "adjustmentPoints": 20,
+      "result": "increased",
+      "reevaluatedBy": "auditor1",
+      "reevaluatedAt": "2026-06-11T09:00:00.000Z",
+      "reason": "半年内同类问题复发，整改效果差（得分20/100），加扣15分。原因为未采取有效CAPA措施，仅做表面整改。",
+      "effectivenessComparison": "原始问题：5分，1个月内整改完成；复发问题：25分，整改效果不佳，预计需2周完成。"
     }
   ]
 }
